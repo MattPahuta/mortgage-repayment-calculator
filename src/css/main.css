@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+@theme {
+  --color-lemon-lime: oklch(86.16% 0.17742 110.677);
+}
