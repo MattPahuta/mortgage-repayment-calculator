@@ -1,5 +1,5 @@
 import FormInput from './FormInput';
-import { Calculator } from 'lucide-react';
+import MortgageTypeSelector from './MortgageTypeSelector';
 
 function MortgageForm() {
   return (
@@ -17,44 +17,37 @@ function MortgageForm() {
       <div className="grid gap-6">
         {/* Input group */}
         <FormInput
-          type="text"
+          type="number"
           id="mortgageAmount"
           label="Mortgage Amount"
+          step="0.01"
           accentContent="$"
           accentLabel="in dollars"
           order="order-1"
         />
         {/* Input group */}
         <FormInput
-          type="text"
+          type="number"
           id="mortgageTerm"
           label="Mortgage Term"
+          step="1"
           accentContent="years"
           accentLabel="in years"
           order="order-0"
         />
         {/* Input group */}
         <FormInput
-          type="text"
+          type="number"
           id="interestRate"
           label="Interest Rate"
+          step="0.01"
           accentContent="%"
           accentLabel="percent"
           order="order-0"
         />
 
         {/* Radio fieldset */}
-        <fieldset>
-          <legend>Mortgage Type</legend>
-          <label htmlFor="">
-            <input type="radio" />
-            Repayment
-          </label>
-          <label htmlFor="">
-            <input type="radio" />
-            Interest Only
-          </label>
-        </fieldset>
+        <MortgageTypeSelector />
       </div>
       <button type="submit" className="w-full py-3.5 px-4 inline-flex items-center justify-center gap-2 text-lg font-bold text-slate-900 bg-lemon-lime rounded-full cursor-pointer hover:bg-lemon-lime/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 transition">
         <svg
