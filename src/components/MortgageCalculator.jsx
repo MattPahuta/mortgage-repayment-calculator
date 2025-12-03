@@ -9,7 +9,7 @@ function MortgageCalculator() {
         <MortgageForm />
       </section>
       {/* results pane goes here */}
-      <section className="flex items-center bg-cyan-950 text-slate-300">
+      <section className="flex items-center bg-cyan-950 text-slate-300 lg:rounded-bl-[80px]">
         <ResultsPane />
       </section>
     </div>

@@ -1,11 +1,17 @@
-import FormInput from './FormInput';
+import NumberInput from './NumberInput';
 import MortgageTypeSelector from './MortgageTypeSelector';
 
+const intl = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 function MortgageForm() {
+
   return (
     <form
       noValidate
-      className="py-8 px-6 sm:p-10 space-y-6 sm:space-y-10 bg-white text-slate-600">
+      className="py-8 px-6 sm:p-10 space-y-6 sm:space-y-10 text-slate-600">
       <header className="flex flex-col gap-2 items-start sm:flex-row sm:justify-between">
         <h1 className="text-2xl font-bold text-slate-900">
           Mortgage Calculator
@@ -17,8 +23,7 @@ function MortgageForm() {
       <div className="grid gap-6 sm:grid-cols-2">
         {/* Input grid group */}
         <div className="grid gap-2.5 sm:col-span-2">
-          <FormInput
-            type="number"
+          <NumberInput
             id="mortgageAmount"
             label="Mortgage Amount"
             step="0.01"
@@ -29,8 +34,7 @@ function MortgageForm() {
         </div>
         {/* Input grid group */}
         <div className="grid gap-2.5">
-          <FormInput
-            type="number"
+          <NumberInput
             id="mortgageTerm"
             label="Mortgage Term"
             step="1"
@@ -41,8 +45,7 @@ function MortgageForm() {
         </div>
         {/* Input grid group */}
         <div className="grid gap-2.5">
-          <FormInput
-            type="number"
+          <NumberInput
             id="interestRate"
             label="Interest Rate"
             step="0.01"
