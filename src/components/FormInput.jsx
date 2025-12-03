@@ -4,7 +4,7 @@
 
 function FormInput({type, id, label, accentContent, accentLabel, step, order = ''}) {
   return (
-    <div className="grid gap-2.5">
+    <>
       <label htmlFor={id} className="">
         {label} 
         <span className="sr-only">{accentLabel}</span>
@@ -26,7 +26,7 @@ function FormInput({type, id, label, accentContent, accentLabel, step, order = '
       <div id={`${id}-error`} className="hidden" aria-live="assertive">
         <p className="text-red-600">This field is required</p>
       </div>
-    </div>
+    </>
   );
 }
 

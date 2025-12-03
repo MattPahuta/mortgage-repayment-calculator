@@ -5,51 +5,60 @@ function MortgageForm() {
   return (
     <form
       noValidate
-      className="py-8 px-6 space-y-6 bg-white text-slate-600">
-      <header className="flex flex-col items-start">
-        <h1 className="mb-2 text-2xl font-bold text-slate-900">
+      className="py-8 px-6 sm:p-10 space-y-6 sm:space-y-10 bg-white text-slate-600">
+      <header className="flex flex-col gap-2 items-start sm:flex-row sm:justify-between">
+        <h1 className="text-2xl font-bold text-slate-900">
           Mortgage Calculator
         </h1>
         <button className="text-slate-600 cursor-pointer border-b border-slate-600 hover:text-slate-900 hover:border-slate-900 focus-visible:outline-2 focus-visible:outline-offset-1  focus-visible:outline-slate-900 focus-visible:border-0">
           Clear All
         </button>
       </header>
-      <div className="grid gap-6">
-        {/* Input group */}
-        <FormInput
-          type="number"
-          id="mortgageAmount"
-          label="Mortgage Amount"
-          step="0.01"
-          accentContent="$"
-          accentLabel="in dollars"
-          order="order-1"
-        />
-        {/* Input group */}
-        <FormInput
-          type="number"
-          id="mortgageTerm"
-          label="Mortgage Term"
-          step="1"
-          accentContent="years"
-          accentLabel="in years"
-          order="order-0"
-        />
-        {/* Input group */}
-        <FormInput
-          type="number"
-          id="interestRate"
-          label="Interest Rate"
-          step="0.01"
-          accentContent="%"
-          accentLabel="percent"
-          order="order-0"
-        />
-
-        {/* Radio fieldset */}
-        <MortgageTypeSelector />
+      <div className="grid gap-6 sm:grid-cols-2">
+        {/* Input grid group */}
+        <div className="grid gap-2.5 sm:col-span-2">
+          <FormInput
+            type="number"
+            id="mortgageAmount"
+            label="Mortgage Amount"
+            step="0.01"
+            accentContent="$"
+            accentLabel="in dollars"
+            order="order-1"
+          />
+        </div>
+        {/* Input grid group */}
+        <div className="grid gap-2.5">
+          <FormInput
+            type="number"
+            id="mortgageTerm"
+            label="Mortgage Term"
+            step="1"
+            accentContent="years"
+            accentLabel="in years"
+            order="order-0"
+          />
+        </div>
+        {/* Input grid group */}
+        <div className="grid gap-2.5">
+          <FormInput
+            type="number"
+            id="interestRate"
+            label="Interest Rate"
+            step="0.01"
+            accentContent="%"
+            accentLabel="percent"
+            order="order-0"
+          />
+        </div>
+        {/* Radio fieldset grid group */}
+        <div className="grid sm:col-span-2">
+          <MortgageTypeSelector />
+        </div>
       </div>
-      <button type="submit" className="w-full py-3.5 px-4 inline-flex items-center justify-center gap-2 text-lg font-bold text-slate-900 bg-lemon-lime rounded-full cursor-pointer hover:bg-lemon-lime/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 transition">
+      <button
+        type="submit"
+        className="w-full sm:w-[315px] py-3.5 px-4 inline-flex items-center justify-center gap-2 text-lg font-bold text-slate-900 bg-lemon-lime rounded-full cursor-pointer hover:bg-lemon-lime/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 transition">
         <svg
           focusable="false"
           aria-hidden="true"
