@@ -6,7 +6,7 @@ const intl = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-function MortgageForm() {
+function MortgageForm( {formData, onChange} ) {
 
   return (
     <form
@@ -56,7 +56,7 @@ function MortgageForm() {
         </div>
         {/* Radio fieldset grid group */}
         <div className="grid sm:col-span-2">
-          <MortgageTypeSelector />
+          <MortgageTypeSelector handleChange={onChange} />
         </div>
       </div>
       <button
