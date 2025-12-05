@@ -1,22 +1,23 @@
-import NumberInput from './NumberInput';
-import MortgageTypeSelector from './MortgageTypeSelector';
+import NumberInput from "./NumberInput";
+import MortgageTypeSelector from "./MortgageTypeSelector";
 
 const intl = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
 
-function MortgageForm( {formData, onChange} ) {
-
+function MortgageForm({ onChange, onSubmit, onClear }) {
   return (
+    <>
     <form
       noValidate
+      onSubmit={onSubmit}
       className="py-8 px-6 sm:p-10 space-y-6 sm:space-y-10 text-slate-600">
       <header className="flex flex-col gap-2 items-start sm:flex-row sm:justify-between">
         <h1 className="text-2xl font-bold text-slate-900">
           Mortgage Calculator
         </h1>
-        <button className="text-slate-600 cursor-pointer border-b border-slate-600 hover:text-slate-900 hover:border-slate-900 focus-visible:outline-2 focus-visible:outline-offset-1  focus-visible:outline-slate-900 focus-visible:border-0">
+        <button type="reset" onClick={onClear} className="text-slate-600 cursor-pointer border-b border-slate-600 hover:text-slate-900 hover:border-slate-900 focus-visible:outline-2 focus-visible:outline-offset-1  focus-visible:outline-slate-900 focus-visible:border-0">
           Clear All
         </button>
       </header>
@@ -26,6 +27,8 @@ function MortgageForm( {formData, onChange} ) {
           <NumberInput
             id="mortgageAmount"
             label="Mortgage Amount"
+            name="mortgageAmount"
+            handleChange={onChange}
             step="0.01"
             accentContent="$"
             accentLabel="in dollars"
@@ -37,6 +40,8 @@ function MortgageForm( {formData, onChange} ) {
           <NumberInput
             id="mortgageTerm"
             label="Mortgage Term"
+            name="mortgageTerm"
+            handleChange={onChange}
             step="1"
             accentContent="years"
             accentLabel="in years"
@@ -48,6 +53,8 @@ function MortgageForm( {formData, onChange} ) {
           <NumberInput
             id="interestRate"
             label="Interest Rate"
+            name="interestRate"
+            handleChange={onChange}
             step="0.01"
             accentContent="%"
             accentLabel="percent"
@@ -56,7 +63,13 @@ function MortgageForm( {formData, onChange} ) {
         </div>
         {/* Radio fieldset grid group */}
         <div className="grid sm:col-span-2">
-          <MortgageTypeSelector handleChange={onChange} />
+          <MortgageTypeSelector
+            options={[
+              { value: "repayment", label: "Repayment" },
+              { value: "interest-only", label: "Interest Only" },
+            ]}
+            handleChange={onChange}
+          />
         </div>
       </div>
       <button
@@ -78,6 +91,7 @@ function MortgageForm( {formData, onChange} ) {
         Calculate Repayments
       </button>
     </form>
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-function NumberInput({id, label, accentContent, accentLabel, step, order = ''}) {
+function NumberInput({id, label, accentContent, accentLabel, step, order = '', name, handleChange}) {
   return (
     <>
       <label htmlFor={id} className="">
@@ -9,6 +9,8 @@ function NumberInput({id, label, accentContent, accentLabel, step, order = ''}) 
             inputMode="numeric"
             type="number"
             id={id}
+            name={name}
+            onChange={handleChange}
             aria-describedby={`${id}-error`}
             step={step}
             className={`${order} peer w-full mx-4 appearance-none text-slate-900 font-semibold outline-0 group-hover:cursor-pointer`}
