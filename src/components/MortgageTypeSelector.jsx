@@ -1,5 +1,5 @@
 
-function MortgageTypeSelector({options, handleChange}) {
+function MortgageTypeSelector({options, onChange}) {
 
   return (
     <fieldset className="">
@@ -13,7 +13,7 @@ function MortgageTypeSelector({options, handleChange}) {
               name="mortgage-type"
               id={option.value}
               value={option.value}
-              onChange={handleChange}
+              onChange={onChange}
               className="h-[18px] w-[18px] place-self-center  appearance-none rounded-full border-4 border-white bg-white bg-clip-padding outline-2 outline-slate-400 checked:bg-lemon-lime checked:outline-lemon-lime checked:border-3 checked:border-lemon-lime/20 focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-3 transiton"
             />
             {option.label}

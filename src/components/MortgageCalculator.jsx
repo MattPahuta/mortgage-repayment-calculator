@@ -3,13 +3,20 @@ import MortgageForm from "./MortgageForm";
 import ResultsPane from "./ResultsPane";
 
 function MortgageCalculator() {
-  const [formData, setFormData] = useState({
+  // input elements state
+  const [amount, setAmount] = useState("");
+  const [term, setTerm] = useState("");
+  const [rate, setRate] = useState("");
+  const [type, setType] = useState("repayment");
+
+  // validation errors state
+  const [errors, setErrors] = useState({
     amount: "",
     term: "",
     rate: "",
-    type: "repayment",
+    type: ""
   });
-
+  // calculated results state
   const [results, setResults] = useState({
     monthlyPayment: 0,
     totalRepayment: 0,
@@ -17,28 +24,63 @@ function MortgageCalculator() {
 
   const [hasCalculated, setHasCalculated] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  // validate all form inputs
+  function validateForm() {
+    const newErrors = {};
+    // validate amount
+    if (!amount) {
+      newErrors.amount = "Mortgage amount is required";
+    } else if (isNaN(amount) || Number(amount) <= 0) {
+      newErrors.amount = "Please enter a valid positive number";
+    }
+    // validate term
+    if (!term) {
+      newErrors.term = "Mortgage term is required";
+    } else if (isNaN(term) || Number(term) <= 0 || !Number.isInteger(Number(term))) {
+      newErrors.term = "Please enter a valid number of years";
+    }
+    // validate rate
+    if (!rate) {
+      newErrors.rate = "Interest rate is required";
+    } else if (isNaN(rate) || Number(rate) < 0) {
+      newErrors.rate = "Please enter a valid interest rate";
+    }
+    // validate type
+    if (!type) {
+      newErrors.type = "Mortgage type is required";
+    }
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+    setErrors(newErrors);
+    // early return - test and move up
+    return Object.keys(newErrors).length === 0;
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Calculating results...");
-    setHasCalculated(true);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      console.log("Calculating results...");
+      setHasCalculated(true);
+    }
   };
 
   const handleClear = () => {
     console.log("Clearing form...")
-    setFormData({
+    // reset all form input state variables
+    setAmount("");
+    setTerm("");
+    setRate("");
+    setType("repayment");
+    // reset errors
+    setErrors({
       amount: "",
       term: "",
       rate: "",
-      type: "repayment",
+      type: ""
+    });
+
+    setResults({
+      monthlyPayment: 0,
+      totalRepayment: 0
     });
 
     setHasCalculated(false);
@@ -49,7 +91,14 @@ function MortgageCalculator() {
       {/* form goes here */}
       <section>
         <MortgageForm
-          onChange={handleInputChange}
+          amount={amount}
+          setAmount={setAmount}
+          term={term}
+          setTerm={setTerm}
+          rate={rate}
+          setRate={setRate}
+          type={type}
+          setType={setType}
           onSubmit={handleSubmit}
           onClear={handleClear}
         />

@@ -77,6 +77,10 @@ const proudOfThisFunc = () => {
 
 Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
 
+Notes:
+- Style: I kept within the constraints of base Tailwind colors and fonts, except for the primary lemon-lime green from the design. It's a shortcut, but I was more interested in the React-specific implementation of this project than aiming for pixel perfect matching. I also used this project to zero in on A11Y features and best practices.
+- I decided to make the error messaging a little more precise rather than stick with the generic messaging the design comp calls for. Again, looking to make the calculator as accessible as possible.
+
 ### Useful resources
 
 - [Official Tailwind Docs](https://tailwindcss.com/docs/hover-focus-and-other-states#differentiating-nested-groups) - A love the Tailwind CSS docs. The hover and focus section has some great examples and use cases of dealing with nested and peer group styles. A lot of helpful guidance here to achieve a close match to the design comp.
