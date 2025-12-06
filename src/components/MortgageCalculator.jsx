@@ -14,7 +14,7 @@ function MortgageCalculator() {
     amount: "",
     term: "",
     rate: "",
-    type: ""
+    type: "",
   });
   // calculated results state
   const [results, setResults] = useState({
@@ -36,7 +36,11 @@ function MortgageCalculator() {
     // validate term
     if (!term) {
       newErrors.term = "Mortgage term is required";
-    } else if (isNaN(term) || Number(term) <= 0 || !Number.isInteger(Number(term))) {
+    } else if (
+      isNaN(term) ||
+      Number(term) <= 0 ||
+      !Number.isInteger(Number(term))
+    ) {
       newErrors.term = "Please enter a valid number of years";
     }
     // validate rate
@@ -64,7 +68,7 @@ function MortgageCalculator() {
   };
 
   const handleClear = () => {
-    console.log("Clearing form...")
+    console.log("Clearing form...");
     // reset all form input state variables
     setAmount("");
     setTerm("");
@@ -75,12 +79,12 @@ function MortgageCalculator() {
       amount: "",
       term: "",
       rate: "",
-      type: ""
+      type: "",
     });
 
     setResults({
       monthlyPayment: 0,
-      totalRepayment: 0
+      totalRepayment: 0,
     });
 
     setHasCalculated(false);
@@ -99,12 +103,13 @@ function MortgageCalculator() {
           setRate={setRate}
           type={type}
           setType={setType}
+          errors={errors}
           onSubmit={handleSubmit}
           onClear={handleClear}
         />
       </section>
       {/* results pane goes here */}
-      <section className="flex items-center bg-cyan-950 text-slate-300 lg:rounded-bl-[80px]">
+      <section className="flex items-center lg:items-start bg-cyan-950 text-slate-300 lg:rounded-bl-[80px]">
         <ResultsPane
           hasCalculated={hasCalculated}
           results={results}

@@ -1,10 +1,10 @@
-import NumberInput from "./NumberInput";
+import FormInput from "./FormInput";
 import MortgageTypeSelector from "./MortgageTypeSelector";
 
-const intl = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
+// const intl = new Intl.NumberFormat("en-US", {
+//   style: "currency",
+//   currency: "USD",
+// });
 
 function MortgageForm({
   amount,
@@ -15,6 +15,7 @@ function MortgageForm({
   setRate,
   type,
   setType,
+  errors,
   onSubmit,
   onClear,
 }) {
@@ -29,7 +30,7 @@ function MortgageForm({
             Mortgage Calculator
           </h1>
           <button
-            type="reset"
+            type="button"
             onClick={onClear}
             className="text-slate-600 cursor-pointer border-b border-slate-600 hover:text-slate-900 hover:border-slate-900 focus-visible:outline-2 focus-visible:outline-offset-1  focus-visible:outline-slate-900 focus-visible:border-0">
             Clear All
@@ -38,15 +39,16 @@ function MortgageForm({
         <div className="grid gap-6 sm:grid-cols-2">
           {/* Input grid group */}
           <div className="grid gap-2.5 sm:col-span-2">
-            <NumberInput
-              id="mortgageAmount"
+            <FormInput
+              type="number"
               label="Mortgage Amount"
-              name="mortgageAmount"
+              name="amount"
               value={amount}
-              onChange={(event) => {
-                setAmount(event.target.value);
-              }}
+              onChange={setAmount}
+              error={errors.amount}
               step="0.01"
+              min="0"
+              inputMode="numeric"
               accentContent="$"
               accentLabel="in dollars"
               order="order-1"
@@ -54,15 +56,16 @@ function MortgageForm({
           </div>
           {/* Input grid group */}
           <div className="grid gap-2.5">
-            <NumberInput
-              id="mortgageTerm"
+            <FormInput
+              type="number"
               label="Mortgage Term"
-              name="mortgageTerm"
+              name="term"
               value={term}
-              onChange={(event) => {
-                setTerm(event.target.value);
-              }}
+              onChange={setTerm}
+              error={errors.term}
               step="1"
+              min="1"
+              inputMode="numeric"
               accentContent="years"
               accentLabel="in years"
               order="order-0"
@@ -70,15 +73,16 @@ function MortgageForm({
           </div>
           {/* Input grid group */}
           <div className="grid gap-2.5">
-            <NumberInput
-              id="interestRate"
+            <FormInput
+              type="number"
               label="Interest Rate"
-              name="interestRate"
+              name="rate"
               value={rate}
-              onChange={(event) => {
-                setRate(event.target.value);
-              }}
+              onChange={setRate}
+              error={errors.rate}
               step="0.01"
+              min="0"
+              inputMode="numeric"
               accentContent="%"
               accentLabel="percent"
               order="order-0"
@@ -91,9 +95,9 @@ function MortgageForm({
                 { value: "repayment", label: "Repayment" },
                 { value: "interest-only", label: "Interest Only" },
               ]}
-              onChange={(event) => {
-                setType(event.target.value);
-              }}
+              value={type}
+              onChange={setType}
+              error={errors.type}
             />
           </div>
         </div>
