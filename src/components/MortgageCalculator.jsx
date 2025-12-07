@@ -59,10 +59,56 @@ function MortgageCalculator() {
     return Object.keys(newErrors).length === 0;
   }
 
+  function calculateMortgage() {
+    const principal = Number(amount);
+    const years = Number(term);
+    const annualRate = Number(rate) / 100;
+    // if "repayment" option selected
+    if (type === "repayment") {
+      const monthlyRate = annualRate / 12;
+      const numberOfPayments = years * 12;
+
+      // if 0% interest rate
+      if (monthlyRate === 0) {
+        const monthlyPayment = principal / numberOfPayments;
+        return {
+          monthlyPayment,
+          totalRepayment: principal
+        };
+      }
+
+      const monthlyPayment =
+        (principal *
+          (monthlyRate *
+            Math.pow(1 + monthlyRate, numberOfPayments))) /
+        (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+
+      const totalRepayment = monthlyPayment * numberOfPayments;
+
+      return {
+        monthlyPayment,
+        totalRepayment
+      };
+      // if "interest-only" option selected
+    } else {
+      const monthlyPayment = (principal * annualRate) / 12;
+      const totalInterest = monthlyPayment * years * 12;
+      const totalRepayment = principal + totalInterest;
+
+      return {
+        monthlyPayment,
+        totalRepayment
+      };
+    }
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
     if (validateForm()) {
       console.log("Calculating results...");
+      const calculatedResults = calculateMortgage();
+      setResults(calculatedResults)
       setHasCalculated(true);
     }
   };
