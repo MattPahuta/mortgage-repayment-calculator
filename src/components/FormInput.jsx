@@ -10,7 +10,7 @@ function FormInput({
   inputMode,
   accentContent,
   accentLabel,
-  order = "",
+  accentOrder = "",
 }) {
   const handleChange = (event) => {
     onChange(event.target.value);
@@ -43,7 +43,7 @@ function FormInput({
             step={step}
             min={min}
             inputMode={inputMode}
-            className={`${order} peer w-full mx-4 appearance-none text-slate-900 font-semibold outline-0 group-hover:cursor-pointer`}
+            className={`${accentOrder} peer w-full mx-4 appearance-none text-slate-900 font-semibold outline-0 group-hover:cursor-pointer`}
           />
           <div
             className={`px-3.5 py-2 text-lg font-bold peer-focus:bg-lemon-lime peer-focus:text-slate-900 peer-invalid:text-white ${error ? "bg-red-600 text-white" : "bg-sky-100"}

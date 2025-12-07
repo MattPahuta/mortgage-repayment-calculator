@@ -2,9 +2,9 @@ import emptyResultsImg from "../assets/illustration-empty.svg";
 
 function ResultsPane({ hasCalculated, results }) {
   return (
-    <div className="py-8 px-6 sm:p-10">
+    <>
       {!hasCalculated ? (
-        <div className="text-center">
+        <div className="text-center place-self-center">
           <img
             src={emptyResultsImg}
             alt=""
@@ -19,7 +19,7 @@ function ResultsPane({ hasCalculated, results }) {
           </p>
         </div>
       ) : (
-        <div>
+        <div className="">
           <h2 className="mb-4 text-2xl font-semibold text-white">
             Your results
           </h2>
@@ -62,7 +62,7 @@ function ResultsPane({ hasCalculated, results }) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

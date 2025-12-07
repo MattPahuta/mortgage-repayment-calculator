@@ -51,7 +51,7 @@ function MortgageForm({
               inputMode="numeric"
               accentContent="$"
               accentLabel="in dollars"
-              order="order-1"
+              accentOrder="order-1"
             />
           </div>
           {/* Input grid group */}
@@ -68,7 +68,7 @@ function MortgageForm({
               inputMode="numeric"
               accentContent="years"
               accentLabel="in years"
-              order="order-0"
+              accentOrder="order-0"
             />
           </div>
           {/* Input grid group */}
@@ -85,7 +85,7 @@ function MortgageForm({
               inputMode="numeric"
               accentContent="%"
               accentLabel="percent"
-              order="order-0"
+              accentOrder="order-0"
             />
           </div>
           {/* Radio fieldset grid group */}

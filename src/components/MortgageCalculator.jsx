@@ -7,7 +7,7 @@ function MortgageCalculator() {
   const [amount, setAmount] = useState("");
   const [term, setTerm] = useState("");
   const [rate, setRate] = useState("");
-  const [type, setType] = useState("repayment");
+  const [type, setType] = useState("");
 
   // validation errors state
   const [errors, setErrors] = useState({
@@ -109,7 +109,7 @@ function MortgageCalculator() {
         />
       </section>
       {/* results pane goes here */}
-      <section className="flex items-center lg:items-start bg-cyan-950 text-slate-300 lg:rounded-bl-[80px]">
+      <section className="py-8 px-6 sm:p-10 grid bg-cyan-950 text-slate-300 lg:rounded-bl-[80px]">
         <ResultsPane
           hasCalculated={hasCalculated}
           results={results}
