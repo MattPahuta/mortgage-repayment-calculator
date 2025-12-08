@@ -1,6 +1,19 @@
 import emptyResultsImg from "../assets/illustration-empty.svg";
 
 function ResultsPane({ hasCalculated, results }) {
+  // const intl = new Intl.NumberFormat("en-US", {
+  //   style: "currency",
+  //   currency: "USD",
+  // });
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount);
+  };
+
   return (
     <>
       {!hasCalculated ? (
@@ -40,7 +53,7 @@ function ResultsPane({ hasCalculated, results }) {
                 </tr>
                 <tr>
                   <td className="text-3xl text-lemon-lime font-bold pb-4 md:pb-8 md:text-5xl">
-                    $1,797.74
+                    {formatCurrency(results.monthlyPayment)}
                   </td>
                 </tr>
               </tbody>
@@ -54,7 +67,7 @@ function ResultsPane({ hasCalculated, results }) {
                 </tr>
                 <tr>
                   <td className="text-left text-2xl text-white font-semibold">
-                    $539,322.91
+                    {formatCurrency(results.totalRepayment)}
                   </td>
                 </tr>
               </tbody>

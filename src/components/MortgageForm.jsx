@@ -1,11 +1,6 @@
 import FormInput from "./FormInput";
 import MortgageTypeSelector from "./MortgageTypeSelector";
 
-// const intl = new Intl.NumberFormat("en-US", {
-//   style: "currency",
-//   currency: "USD",
-// });
-
 function MortgageForm({
   amount,
   setAmount,

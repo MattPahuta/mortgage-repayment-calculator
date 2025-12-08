@@ -119,7 +119,7 @@ function MortgageCalculator() {
     setAmount("");
     setTerm("");
     setRate("");
-    setType("repayment");
+    setType("");
     // reset errors
     setErrors({
       amount: "",
