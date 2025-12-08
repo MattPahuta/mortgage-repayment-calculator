@@ -16,6 +16,92 @@ function MortgageCalculator() {
     rate: "",
     type: "",
   });
+
+  // validate a field, return error message if invalid
+  // return empty string if valid
+  function validateField(fieldName, value) {
+    switch(fieldName) {
+      case "amount":
+        if (!value) {
+          return "Mortgage amount is required";
+        } else if (isNaN(value) || Number(value) <= 0) {
+          return "Please enter a valid positive number";
+        }
+        return "";
+      
+      case "term":
+        if (!value) {
+          return "Mortgage term is required";
+        } else if (
+          isNaN(value) ||
+          Number(value) <= 0 ||
+          !Number.isInteger(Number(value))
+        ) {
+          return "Please enter a valid number of years";
+        }
+        return "";
+
+      case "rate":
+        if (!value) {
+          return "Interest rate is required";
+        } else if (isNaN(value) || Number(value) < 0) {
+          return "Please enter a valid interest rate";
+        }
+        return "";
+
+      case "type":
+        if (!value) {
+          return "Mortgage type is required";
+        }
+        return "";
+
+      default:
+        return "";
+    }
+  }
+
+  // wrapped setter functions for real-time error management
+  const handleAmountChange = (value) => {
+    setAmount(value);
+    if (errors.amount) {
+      const error = validateField("amount", value);
+      // clear error if the new value is valid
+      if (!error) {
+        setErrors(prev => ({...prev, amount: ""}));
+      }
+    }
+  };
+  const handleTermChange = (value) => {
+    setTerm(value);
+    if (errors.term) {
+      const error = validateField("term", value);
+      // clear error if the new value is valid
+      if (!error) {
+        setErrors(prev => ({...prev, term: ""}));
+      }
+    }
+  };
+  const handleRateChange = (value) => {
+    setRate(value);
+    if (errors.rate) {
+      const error = validateField("rate", value);
+      // clear error if the new value is valid
+      if (!error) {
+        setErrors(prev => ({...prev, rate: ""}));
+      }
+    }
+  };
+  const handleTypeChange = (value) => {
+    setType(value);
+    if (errors.type) {
+      const error = validateField("type", value);
+      // clear error if the new value is valid
+      if (!error) {
+        setErrors(prev => ({...prev, type: ""}));
+      }
+    }
+  };
+
   // calculated results state
   const [results, setResults] = useState({
     monthlyPayment: 0,
@@ -24,41 +110,20 @@ function MortgageCalculator() {
 
   const [hasCalculated, setHasCalculated] = useState(false);
 
-  // validate all form inputs
   function validateForm() {
-    const newErrors = {};
-    // validate amount
-    if (!amount) {
-      newErrors.amount = "Mortgage amount is required";
-    } else if (isNaN(amount) || Number(amount) <= 0) {
-      newErrors.amount = "Please enter a valid positive number";
-    }
-    // validate term
-    if (!term) {
-      newErrors.term = "Mortgage term is required";
-    } else if (
-      isNaN(term) ||
-      Number(term) <= 0 ||
-      !Number.isInteger(Number(term))
-    ) {
-      newErrors.term = "Please enter a valid number of years";
-    }
-    // validate rate
-    if (!rate) {
-      newErrors.rate = "Interest rate is required";
-    } else if (isNaN(rate) || Number(rate) < 0) {
-      newErrors.rate = "Please enter a valid interest rate";
-    }
-    // validate type
-    if (!type) {
-      newErrors.type = "Mortgage type is required";
-    }
+    const newErrors = {
+      amount: validateField("amount", amount),
+      term: validateField("term", term),
+      rate: validateField("rate", rate),
+      type: validateField("type", type)
+    };
 
     setErrors(newErrors);
-    // early return - test and move up
-    return Object.keys(newErrors).length === 0;
+    return !Object.values(newErrors).some(error => error !== "");
   }
 
+  // calculate mortgage payments and totals
+  // return object with calculated values
   function calculateMortgage() {
     const principal = Number(amount);
     const years = Number(term);
@@ -73,7 +138,7 @@ function MortgageCalculator() {
         const monthlyPayment = principal / numberOfPayments;
         return {
           monthlyPayment,
-          totalRepayment: principal
+          totalRepayment: principal,
         };
       }
 
@@ -87,7 +152,7 @@ function MortgageCalculator() {
 
       return {
         monthlyPayment,
-        totalRepayment
+        totalRepayment,
       };
       // if "interest-only" option selected
     } else {
@@ -97,7 +162,7 @@ function MortgageCalculator() {
 
       return {
         monthlyPayment,
-        totalRepayment
+        totalRepayment,
       };
     }
   }
@@ -106,9 +171,8 @@ function MortgageCalculator() {
     event.preventDefault();
 
     if (validateForm()) {
-      console.log("Calculating results...");
       const calculatedResults = calculateMortgage();
-      setResults(calculatedResults)
+      setResults(calculatedResults);
       setHasCalculated(true);
     }
   };
@@ -142,13 +206,13 @@ function MortgageCalculator() {
       <section>
         <MortgageForm
           amount={amount}
-          setAmount={setAmount}
+          setAmount={handleAmountChange}
           term={term}
-          setTerm={setTerm}
+          setTerm={handleTermChange}
           rate={rate}
-          setRate={setRate}
+          setRate={handleRateChange}
           type={type}
-          setType={setType}
+          setType={handleTypeChange}
           errors={errors}
           onSubmit={handleSubmit}
           onClear={handleClear}
