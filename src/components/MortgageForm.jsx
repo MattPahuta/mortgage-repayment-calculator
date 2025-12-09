@@ -79,7 +79,7 @@ function MortgageForm({
               min="0"
               inputMode="numeric"
               accentContent="%"
-              accentLabel="percent"
+              accentLabel="percentage"
               accentOrder="order-0"
             />
           </div>

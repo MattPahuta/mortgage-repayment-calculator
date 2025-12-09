@@ -22,7 +22,8 @@ function MortgageCalculator() {
   function validateField(fieldName, value) {
     switch(fieldName) {
       case "amount":
-        if (!value) {
+        if (!value.trim()) {
+          console.log(value)
           return "Mortgage amount is required";
         } else if (isNaN(value) || Number(value) <= 0) {
           return "Please enter a valid positive number";
@@ -62,40 +63,39 @@ function MortgageCalculator() {
 
   // wrapped setter functions for real-time error management
   const handleAmountChange = (value) => {
-    setAmount(value);
-    if (errors.amount) {
+    setAmount(value); // update the value
+    if (errors.amount) { // check if there's currently an error
       const error = validateField("amount", value);
-      // clear error if the new value is valid
-      if (!error) {
-        setErrors(prev => ({...prev, amount: ""}));
+      if (!error) { // if error is resolved with a valid value
+        setErrors(prev => ({...prev, amount: ""})); // clear the error message
       }
     }
   };
+
   const handleTermChange = (value) => {
     setTerm(value);
     if (errors.term) {
       const error = validateField("term", value);
-      // clear error if the new value is valid
       if (!error) {
         setErrors(prev => ({...prev, term: ""}));
       }
     }
   };
+
   const handleRateChange = (value) => {
     setRate(value);
     if (errors.rate) {
       const error = validateField("rate", value);
-      // clear error if the new value is valid
       if (!error) {
         setErrors(prev => ({...prev, rate: ""}));
       }
     }
   };
+
   const handleTypeChange = (value) => {
     setType(value);
     if (errors.type) {
       const error = validateField("type", value);
-      // clear error if the new value is valid
       if (!error) {
         setErrors(prev => ({...prev, type: ""}));
       }

@@ -17,7 +17,7 @@ function ResultsPane({ hasCalculated, results }) {
   return (
     <>
       {!hasCalculated ? (
-        <div className="text-center place-self-center">
+        <div className="max-w-xl text-center place-self-center">
           <img
             src={emptyResultsImg}
             alt=""
@@ -32,7 +32,7 @@ function ResultsPane({ hasCalculated, results }) {
           </p>
         </div>
       ) : (
-        <div className="">
+        <div className="max-w-xl">
           <h2 className="mb-4 text-2xl font-semibold text-white">
             Your results
           </h2>
