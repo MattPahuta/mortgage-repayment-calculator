@@ -22,18 +22,17 @@ function MortgageCalculator() {
   });
 
   // validate a field, return error message if invalid
-  // return empty string if valid
+  // return empty string if valid "5000"
   function validateField(fieldName, value) {
-    switch(fieldName) {
+    switch (fieldName) {
       case "amount":
-        if (!value.trim()) {
-          console.log(value)
+        if (!value) {
           return "Mortgage amount is required";
-        } else if (isNaN(value) || Number(value) <= 0) {
+        }
+        if (isNaN(value) || Number(value) <= 0) {
           return "Please enter a valid positive number";
         }
         return "";
-      
       case "term":
         if (!value) {
           return "Mortgage term is required";
@@ -45,7 +44,6 @@ function MortgageCalculator() {
           return "Please enter a valid number of years";
         }
         return "";
-
       case "rate":
         if (!value) {
           return "Interest rate is required";
@@ -53,13 +51,11 @@ function MortgageCalculator() {
           return "Please enter a valid interest rate";
         }
         return "";
-
       case "type":
         if (!value) {
           return "Mortgage type is required";
         }
         return "";
-
       default:
         return "";
     }
@@ -68,10 +64,12 @@ function MortgageCalculator() {
   // wrapped setter functions for real-time error management
   const handleAmountChange = (value) => {
     setAmount(value); // update the value
-    if (errors.amount) { // check if there's currently an error
+    if (errors.amount) {
+      // check if there's currently an error
       const error = validateField("amount", value);
-      if (!error) { // if error is resolved with a valid value
-        setErrors(prev => ({...prev, amount: ""})); // clear the error message
+      if (!error) {
+        // if error is resolved with a valid value
+        setErrors((prev) => ({ ...prev, amount: "" })); // clear the error message
       }
     }
   };
@@ -81,7 +79,7 @@ function MortgageCalculator() {
     if (errors.term) {
       const error = validateField("term", value);
       if (!error) {
-        setErrors(prev => ({...prev, term: ""}));
+        setErrors((prev) => ({ ...prev, term: "" }));
       }
     }
   };
@@ -91,7 +89,7 @@ function MortgageCalculator() {
     if (errors.rate) {
       const error = validateField("rate", value);
       if (!error) {
-        setErrors(prev => ({...prev, rate: ""}));
+        setErrors((prev) => ({ ...prev, rate: "" }));
       }
     }
   };
@@ -101,7 +99,7 @@ function MortgageCalculator() {
     if (errors.type) {
       const error = validateField("type", value);
       if (!error) {
-        setErrors(prev => ({...prev, type: ""}));
+        setErrors((prev) => ({ ...prev, type: "" }));
       }
     }
   };
@@ -121,14 +119,14 @@ function MortgageCalculator() {
       amount: validateField("amount", amount),
       term: validateField("term", term),
       rate: validateField("rate", rate),
-      type: validateField("type", type)
+      type: validateField("type", type),
     };
     // are there errors? true/false
     const isValid = !Object.values(newErrors).some(
       (error) => error !== "",
     );
     // return newErrors object, isValid boolean value
-    return { newErrors, isValid } ;
+    return { newErrors, isValid };
   }
 
   // calculate mortgage payments and totals
@@ -181,7 +179,7 @@ function MortgageCalculator() {
     // get errors object and validity boolean value
     const { newErrors, isValid } = validateForm();
     setErrors(newErrors);
-     // if (validateForm()) {
+    // if (validateForm()) {
     if (isValid) {
       const calculatedResults = calculateMortgage();
       setResults(calculatedResults);
@@ -202,7 +200,7 @@ function MortgageCalculator() {
         firstErrorField.ref.current.focus();
       }
     }
-  };;;
+  };
 
   const handleClear = () => {
     console.log("Clearing form...");
@@ -250,7 +248,10 @@ function MortgageCalculator() {
         />
       </section>
       {/* results section goes here */}
-      <section className="py-8 px-6 sm:p-10 grid bg-cyan-950 text-slate-300 lg:rounded-bl-[80px]">
+      <section
+        role="region"
+        aria-live="polite"
+        className="py-8 px-6 sm:p-10 grid bg-cyan-950 text-slate-300 lg:rounded-bl-[80px]">
         <ResultsPane
           hasCalculated={hasCalculated}
           results={results}

@@ -1,13 +1,10 @@
 function FormInput({
-  type,
   label,
   name,
   value,
   onChange,
   ref,
   error,
-  step,
-  min,
   inputMode,
   accentContent,
   accentLabel,
@@ -17,12 +14,6 @@ function FormInput({
     onChange(event.target.value);
   };
 
-  /* 
-  group mt-2.5 flex items-center rounded-sm border border-slate-400 overflow-hidden shadow-sm hover:border-slate-900 transition has-focus:border-lemon-lime
-
-  bg-sky-100 px-3.5 py-2 text-lg font-bold peer-focus:bg-lemon-lime peer-focus:text-slate-900 peer-invalid:bg-red-600 peer-invalid:text-white
-  */
-
   return (
     <>
       <label htmlFor={name} className="">
@@ -30,12 +21,12 @@ function FormInput({
         <span className="sr-only">{accentLabel}</span>
         <div
           className={`
-          group mt-2.5 flex items-center rounded-sm border overflow-hidden shadow-sm hover:border-slate-900 transition has-focus:border-lemon-lime
-          ${error ? "border-red-600" : "border-slate-400"}
+          group mt-2.5 flex items-center rounded-sm border overflow-hidden shadow-sm hover:border-slate-900 transition 
+          ${error ? "border-red-600" : "border-slate-400 has-focus:border-lemon-lime"}
           `}>
           <input
             required
-            type={type}
+            type="text"
             id={name}
             name={name}
             value={value}
@@ -43,13 +34,12 @@ function FormInput({
             ref={ref}
             aria-invalid={error ? "true" : "false"}
             aria-describedby={error ? `${name}-error` : undefined}
-            step={step}
-            min={min}
+            pattern="[0-9]*\.?[0-9]*"
             inputMode={inputMode}
             className={`${accentOrder} peer w-full mx-4 appearance-none text-slate-900 font-semibold outline-0 group-hover:cursor-pointer`}
           />
           <div
-            className={`px-3.5 py-2 text-lg font-bold peer-focus:bg-lemon-lime peer-focus:text-slate-900 ${error ? "bg-red-600 text-white" : "bg-sky-100"}
+            className={`px-3.5 py-2 text-lg font-bold  ${error ? "bg-red-600 text-white" : "bg-sky-100 peer-focus:bg-lemon-lime peer-focus:text-slate-900"}
             `}>
             {accentContent}
           </div>
@@ -58,7 +48,7 @@ function FormInput({
       {/* error notification */}
       {error && (
         <div id={`${name}-error`} role="alert" aria-live="assertive">
-          <p className="text-red-600">{error}</p>
+          <p className="text-sm text-red-600">{error}</p>
         </div>
       )}
     </>

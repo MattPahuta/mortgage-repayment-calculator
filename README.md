@@ -81,7 +81,8 @@ Notes:
 - Style: I kept within the constraints of base Tailwind colors and fonts, except for the primary lemon-lime green from the design. It's a shortcut, but I was more interested in the React-specific implementation of this project than aiming for pixel perfect matching. I also used this project to zero in on A11Y features and best practices.
 - I decided to make the error messaging a little more precise rather than stick with the generic messaging the design comp calls for. Again, looking to make the calculator as accessible as possible.
 - Took a slightly more traditional approach to this project. Using pre-React 19 controlled form inputs and opting to pass props down a couple of levels rather than use Context.
-- However, I did take advantage of the React 19 update where we no longer need to use forwardRef to forward refs to child components.
+- However, I did take advantage of the React 19 update where we no longer need to use forwardRef to forward refs to child components, simplifying that process.
+- I went back and forth with the input elements. Originally, I had them as their proper number types and added additional styles to remove the spinners as the design comp calls for. During testing, I was reminded of the Firefox issue that allows for text in numeric inputs. Leaving one generic 'This field is required' error for all issues felt wrong. But since by the time the text values got to React and they were empty strings, my customized error messaging wasn't working properly. I considered a more complex approach to an an extra invalid attribute to the inputs to cover this issue, but it felt too heavyhanded for such a small thing. Ultimately, I opted to go with text inputs with an additional pattern attribute to help achieve the results I was looking for.
 
 ### Useful resources
 

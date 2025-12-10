@@ -43,7 +43,7 @@ function MortgageTypeSelector({ value, onChange, ref, error }) {
             id="mortgageType-error"
             role="alert"
             aria-live="assertive">
-            <p className="text-red-600">{error}</p>
+            <p className="text-sm text-red-600">{error}</p>
           </div>
         )}
       </div>

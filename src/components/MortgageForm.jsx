@@ -46,9 +46,7 @@ function MortgageForm({
               onChange={setAmount}
               ref={amountRef}
               error={errors.amount}
-              step="0.01"
-              min="0"
-              inputMode="numeric"
+              inputMode="decimal"
               accentContent="$"
               accentLabel="in dollars"
               accentOrder="order-1"
@@ -57,15 +55,12 @@ function MortgageForm({
           {/* Input grid group */}
           <div className="grid gap-2.5">
             <FormInput
-              type="number"
               label="Mortgage Term"
               name="term"
               value={term}
               onChange={setTerm}
               ref={termRef}
               error={errors.term}
-              step="1"
-              min="1"
               inputMode="numeric"
               accentContent="years"
               accentLabel="in years"
@@ -75,16 +70,13 @@ function MortgageForm({
           {/* Input grid group */}
           <div className="grid gap-2.5">
             <FormInput
-              type="number"
               label="Interest Rate"
               name="rate"
               value={rate}
               onChange={setRate}
               ref={rateRef}
               error={errors.rate}
-              step="0.01"
-              min="0"
-              inputMode="numeric"
+              inputMode="decimal"
               accentContent="%"
               accentLabel="percentage"
               accentOrder="order-0"
