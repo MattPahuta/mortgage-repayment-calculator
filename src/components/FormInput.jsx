@@ -4,6 +4,7 @@ function FormInput({
   name,
   value,
   onChange,
+  ref,
   error,
   step,
   min,
@@ -39,6 +40,7 @@ function FormInput({
             name={name}
             value={value}
             onChange={handleChange}
+            ref={ref}
             aria-invalid={error ? "true" : "false"}
             aria-describedby={error ? `${name}-error` : undefined}
             step={step}

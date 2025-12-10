@@ -10,6 +10,10 @@ function MortgageForm({
   setRate,
   type,
   setType,
+  amountRef,
+  termRef,
+  rateRef,
+  typeRef,
   errors,
   onSubmit,
   onClear,
@@ -40,6 +44,7 @@ function MortgageForm({
               name="amount"
               value={amount}
               onChange={setAmount}
+              ref={amountRef}
               error={errors.amount}
               step="0.01"
               min="0"
@@ -57,6 +62,7 @@ function MortgageForm({
               name="term"
               value={term}
               onChange={setTerm}
+              ref={termRef}
               error={errors.term}
               step="1"
               min="1"
@@ -74,6 +80,7 @@ function MortgageForm({
               name="rate"
               value={rate}
               onChange={setRate}
+              ref={rateRef}
               error={errors.rate}
               step="0.01"
               min="0"
@@ -86,12 +93,9 @@ function MortgageForm({
           {/* Radio fieldset grid group */}
           <div className="grid sm:col-span-2">
             <MortgageTypeSelector
-              options={[
-                { value: "repayment", label: "Repayment" },
-                { value: "interest-only", label: "Interest Only" },
-              ]}
               value={type}
               onChange={setType}
+              ref={typeRef}
               error={errors.type}
             />
           </div>

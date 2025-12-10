@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import MortgageForm from "./MortgageForm";
 import ResultsPane from "./ResultsPane";
 
@@ -8,7 +8,11 @@ function MortgageCalculator() {
   const [term, setTerm] = useState("");
   const [rate, setRate] = useState("");
   const [type, setType] = useState("");
-
+  // refs to facilitate focus behavior on error
+  const amountRef = useRef(null);
+  const termRef = useRef(null);
+  const rateRef = useRef(null);
+  const typeRef = useRef(null);
   // validation errors state
   const [errors, setErrors] = useState({
     amount: "",
@@ -108,8 +112,10 @@ function MortgageCalculator() {
     totalRepayment: 0,
   });
 
+  // state for handling display of calculated results
   const [hasCalculated, setHasCalculated] = useState(false);
 
+  // validate form, set errors where necessary
   function validateForm() {
     const newErrors = {
       amount: validateField("amount", amount),
@@ -117,9 +123,12 @@ function MortgageCalculator() {
       rate: validateField("rate", rate),
       type: validateField("type", type)
     };
-
-    setErrors(newErrors);
-    return !Object.values(newErrors).some(error => error !== "");
+    // are there errors? true/false
+    const isValid = !Object.values(newErrors).some(
+      (error) => error !== "",
+    );
+    // return newErrors object, isValid boolean value
+    return { newErrors, isValid } ;
   }
 
   // calculate mortgage payments and totals
@@ -141,7 +150,7 @@ function MortgageCalculator() {
           totalRepayment: principal,
         };
       }
-
+      // formula for calculating monthly payment
       const monthlyPayment =
         (principal *
           (monthlyRate *
@@ -169,13 +178,31 @@ function MortgageCalculator() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (validateForm()) {
+    // get errors object and validity boolean value
+    const { newErrors, isValid } = validateForm();
+    setErrors(newErrors);
+     // if (validateForm()) {
+    if (isValid) {
       const calculatedResults = calculateMortgage();
       setResults(calculatedResults);
       setHasCalculated(true);
+    } else {
+      // validation has failed
+      // define order of fields for error checks
+      const fieldOrder = [
+        { name: "amount", ref: amountRef, error: newErrors.amount },
+        { name: "term", ref: termRef, error: newErrors.term },
+        { name: "rate", ref: rateRef, error: newErrors.rate },
+        { name: "type", ref: typeRef, error: newErrors.type },
+      ];
+      // find the first field with an error based on fieldOrder
+      const firstErrorField = fieldOrder.find((field) => field.error);
+      // focus the found field
+      if (firstErrorField && firstErrorField.ref.current) {
+        firstErrorField.ref.current.focus();
+      }
     }
-  };
+  };;;
 
   const handleClear = () => {
     console.log("Clearing form...");
@@ -202,7 +229,7 @@ function MortgageCalculator() {
 
   return (
     <div className="max-w-5xl grid overflow-hidden sm:rounded-3xl lg:grid-cols-2 bg-white">
-      {/* form goes here */}
+      {/* form section goes here */}
       <section>
         <MortgageForm
           amount={amount}
@@ -213,12 +240,16 @@ function MortgageCalculator() {
           setRate={handleRateChange}
           type={type}
           setType={handleTypeChange}
+          amountRef={amountRef}
+          termRef={termRef}
+          rateRef={rateRef}
+          typeRef={typeRef}
           errors={errors}
           onSubmit={handleSubmit}
           onClear={handleClear}
         />
       </section>
-      {/* results pane goes here */}
+      {/* results section goes here */}
       <section className="py-8 px-6 sm:p-10 grid bg-cyan-950 text-slate-300 lg:rounded-bl-[80px]">
         <ResultsPane
           hasCalculated={hasCalculated}

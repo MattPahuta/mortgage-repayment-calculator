@@ -80,6 +80,8 @@ Use this section to outline areas that you want to continue focusing on in futur
 Notes:
 - Style: I kept within the constraints of base Tailwind colors and fonts, except for the primary lemon-lime green from the design. It's a shortcut, but I was more interested in the React-specific implementation of this project than aiming for pixel perfect matching. I also used this project to zero in on A11Y features and best practices.
 - I decided to make the error messaging a little more precise rather than stick with the generic messaging the design comp calls for. Again, looking to make the calculator as accessible as possible.
+- Took a slightly more traditional approach to this project. Using pre-React 19 controlled form inputs and opting to pass props down a couple of levels rather than use Context.
+- However, I did take advantage of the React 19 update where we no longer need to use forwardRef to forward refs to child components.
 
 ### Useful resources
 
