@@ -1,4 +1,7 @@
 function FormInput({
+  type,
+  minLength = "1",
+  maxLength = "",
   label,
   name,
   value,
@@ -11,7 +14,14 @@ function FormInput({
   accentOrder = "",
 }) {
   const handleChange = (event) => {
-    onChange(event.target.value);
+    const inputValue = event.target.value;
+    // allow only empty string, numbers, decimal point
+    console.log(event.target.validity);
+    // if (inputValue === "" || /^[0-9]*\.?[0-9]*$/.test(inputValue)) {
+    //   onChange(inputValue);
+    // }
+    if (event.target.validity.patternMismatch) return;
+    onChange(inputValue);
   };
 
   return (
@@ -26,7 +36,9 @@ function FormInput({
           `}>
           <input
             required
-            type="text"
+            type={type}
+            minLength={minLength}
+            maxLength={maxLength}
             id={name}
             name={name}
             value={value}

@@ -39,7 +39,7 @@ function MortgageForm({
           {/* Input grid group */}
           <div className="grid gap-2.5 sm:col-span-2">
             <FormInput
-              type="number"
+              type="text"
               label="Mortgage Amount"
               name="amount"
               value={amount}
@@ -55,6 +55,9 @@ function MortgageForm({
           {/* Input grid group */}
           <div className="grid gap-2.5">
             <FormInput
+              type="text"
+              minLength="1"
+              maxLength="2"
               label="Mortgage Term"
               name="term"
               value={term}
@@ -70,6 +73,7 @@ function MortgageForm({
           {/* Input grid group */}
           <div className="grid gap-2.5">
             <FormInput
+              type="text"
               label="Interest Rate"
               name="rate"
               value={rate}
