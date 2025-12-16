@@ -1,7 +1,4 @@
 function FormInput({
-  type,
-  minLength = "1",
-  maxLength = "",
   label,
   name,
   value,
@@ -9,6 +6,7 @@ function FormInput({
   ref,
   error,
   inputMode,
+  pattern,
   accentContent,
   accentLabel,
   accentOrder = "",
@@ -17,11 +15,11 @@ function FormInput({
     const inputValue = event.target.value;
     // allow only empty string, numbers, decimal point
     console.log(event.target.validity);
-    // if (inputValue === "" || /^[0-9]*\.?[0-9]*$/.test(inputValue)) {
-    //   onChange(inputValue);
-    // }
-    if (event.target.validity.patternMismatch) return;
-    onChange(inputValue);
+    if (inputValue === "" || /^[0-9]*\.?[0-9]*$/.test(inputValue)) {
+      onChange(inputValue);
+    }
+    // if (event.target.validity.patternMismatch) return;
+    // onChange(inputValue);
   };
 
   return (
@@ -36,9 +34,7 @@ function FormInput({
           `}>
           <input
             required
-            type={type}
-            minLength={minLength}
-            maxLength={maxLength}
+            type="text"
             id={name}
             name={name}
             value={value}
@@ -47,6 +43,7 @@ function FormInput({
             aria-invalid={error ? "true" : "false"}
             aria-describedby={error ? `${name}-error` : undefined}
             pattern="[0-9]*\.?[0-9]*"
+            // pattern={pattern}
             inputMode={inputMode}
             className={`${accentOrder} peer w-full mx-4 appearance-none text-slate-900 font-semibold outline-0 group-hover:cursor-pointer`}
           />

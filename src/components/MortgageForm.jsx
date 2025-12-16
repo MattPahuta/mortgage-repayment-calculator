@@ -39,9 +39,9 @@ function MortgageForm({
           {/* Input grid group */}
           <div className="grid gap-2.5 sm:col-span-2">
             <FormInput
-              type="text"
               label="Mortgage Amount"
               name="amount"
+              // pattern="[0-9]*\.?[0-9]*"
               value={amount}
               onChange={setAmount}
               ref={amountRef}
@@ -55,11 +55,9 @@ function MortgageForm({
           {/* Input grid group */}
           <div className="grid gap-2.5">
             <FormInput
-              type="text"
-              minLength="1"
-              maxLength="2"
               label="Mortgage Term"
               name="term"
+              // pattern="[0-9]*\?[0-9]*"
               value={term}
               onChange={setTerm}
               ref={termRef}
@@ -73,9 +71,9 @@ function MortgageForm({
           {/* Input grid group */}
           <div className="grid gap-2.5">
             <FormInput
-              type="text"
               label="Interest Rate"
               name="rate"
+              // pattern="[0-9]*\.?[0-9]*"
               value={rate}
               onChange={setRate}
               ref={rateRef}
