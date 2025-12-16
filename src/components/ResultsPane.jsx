@@ -1,19 +1,8 @@
+import { formatCurrency } from "../utils/formatters";
 import emptyResultsImg from "../assets/illustration-empty.svg";
 
 function ResultsPane({ hasCalculated, results }) {
-  // const intl = new Intl.NumberFormat("en-US", {
-  //   style: "currency",
-  //   currency: "USD",
-  // });
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(amount);
-  };
-
+  
   return (
     <>
       {!hasCalculated ? (

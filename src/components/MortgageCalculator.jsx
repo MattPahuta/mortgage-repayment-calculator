@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import { calculateMortgage } from "../utils/calculations";
+import { validateField, validateForm } from "../utils/validation";
 import MortgageForm from "./MortgageForm";
 import ResultsPane from "./ResultsPane";
 
@@ -20,46 +22,6 @@ function MortgageCalculator() {
     rate: "",
     type: "",
   });
-
-  // validate a field, return error message if invalid
-  // return empty string if valid "5000"
-  function validateField(fieldName, value) {
-    switch (fieldName) {
-      case "amount":
-        if (!value) {
-          return "Mortgage amount is required";
-        }
-        if (isNaN(value) || Number(value) <= 0) {
-          return "Please enter a valid positive number";
-        }
-        return "";
-      case "term":
-        if (!value) {
-          return "Mortgage term is required";
-        } else if (
-          isNaN(value) ||
-          Number(value) <= 0 ||
-          !Number.isInteger(Number(value))
-        ) {
-          return "Please enter a valid number of years";
-        }
-        return "";
-      case "rate":
-        if (!value) {
-          return "Interest rate is required";
-        } else if (isNaN(value) || Number(value) < 0) {
-          return "Please enter a valid interest rate";
-        }
-        return "";
-      case "type":
-        if (!value) {
-          return "Mortgage type is required";
-        }
-        return "";
-      default:
-        return "";
-    }
-  }
 
   // wrapped setter functions for real-time error management
   const handleAmountChange = (value) => {
@@ -113,80 +75,17 @@ function MortgageCalculator() {
   // state for handling display of calculated results
   const [hasCalculated, setHasCalculated] = useState(false);
 
-  // validate form, set errors where necessary
-  function validateForm() {
-    const newErrors = {
-      amount: validateField("amount", amount),
-      term: validateField("term", term),
-      rate: validateField("rate", rate),
-      type: validateField("type", type),
-    };
-    // are there errors? true/false
-    const isValid = !Object.values(newErrors).some(
-      (error) => error !== "",
-    );
-    // return newErrors object, isValid boolean value
-    return { newErrors, isValid };
-  }
-
-  // calculate mortgage payments and totals
-  // return object with calculated values
-  function calculateMortgage() {
-    const principal = Number(amount);
-    const years = Number(term);
-    const annualRate = Number(rate) / 100;
-    // if "repayment" option selected
-    if (type === "repayment") {
-      const monthlyRate = annualRate / 12;
-      const numberOfPayments = years * 12;
-
-      // if 0% interest rate
-      if (monthlyRate === 0) {
-        const monthlyPayment = principal / numberOfPayments;
-        return {
-          monthlyPayment,
-          totalRepayment: principal,
-        };
-      }
-      // formula for calculating monthly payment
-      const monthlyPayment =
-        (principal *
-          (monthlyRate *
-            Math.pow(1 + monthlyRate, numberOfPayments))) /
-        (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
-
-      const totalRepayment = monthlyPayment * numberOfPayments;
-
-      return {
-        monthlyPayment,
-        totalRepayment,
-      };
-      // if "interest-only" option selected
-    } else {
-      const monthlyPayment = (principal * annualRate) / 12;
-      const totalInterest = monthlyPayment * years * 12;
-      const totalRepayment = principal + totalInterest;
-
-      return {
-        monthlyPayment,
-        totalRepayment,
-      };
-    }
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault();
     // get errors object and validity boolean value
-    const { newErrors, isValid } = validateForm();
+    const { newErrors, isValid } = validateForm(amount, term, rate, type);
     setErrors(newErrors);
-    // if (validateForm()) {
+
     if (isValid) {
-      const calculatedResults = calculateMortgage();
+      const calculatedResults = calculateMortgage(amount, term, rate, type);
       setResults(calculatedResults);
       setHasCalculated(true);
-    } else {
-      // validation has failed
-      // define order of fields for error checks
+    } else { // validation has failed
       const fieldOrder = [
         { name: "amount", ref: amountRef, error: newErrors.amount },
         { name: "term", ref: termRef, error: newErrors.term },
@@ -227,7 +126,6 @@ function MortgageCalculator() {
 
   return (
     <div className="max-w-5xl grid overflow-hidden sm:rounded-3xl lg:grid-cols-2 bg-white">
-      {/* form section goes here */}
       <section>
         <MortgageForm
           amount={amount}
@@ -247,7 +145,6 @@ function MortgageCalculator() {
           onClear={handleClear}
         />
       </section>
-      {/* results section goes here */}
       <section
         role="region"
         aria-live="polite"

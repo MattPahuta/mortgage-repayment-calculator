@@ -41,7 +41,6 @@ function MortgageForm({
             <FormInput
               label="Mortgage Amount"
               name="amount"
-              // pattern="[0-9]*\.?[0-9]*"
               value={amount}
               onChange={setAmount}
               ref={amountRef}
@@ -57,7 +56,6 @@ function MortgageForm({
             <FormInput
               label="Mortgage Term"
               name="term"
-              // pattern="[0-9]*\?[0-9]*"
               value={term}
               onChange={setTerm}
               ref={termRef}
@@ -73,7 +71,6 @@ function MortgageForm({
             <FormInput
               label="Interest Rate"
               name="rate"
-              // pattern="[0-9]*\.?[0-9]*"
               value={rate}
               onChange={setRate}
               ref={rateRef}
