@@ -13,12 +13,9 @@ function FormInput({
   const handleChange = (event) => {
     const inputValue = event.target.value;
     // allow only empty string, numbers, decimal point
-    console.log(event.target.validity);
     if (inputValue === "" || /^[0-9]*\.?[0-9]*$/.test(inputValue)) {
       onChange(inputValue);
     }
-    // if (event.target.validity.patternMismatch) return;
-    // onChange(inputValue);
   };
 
   return (

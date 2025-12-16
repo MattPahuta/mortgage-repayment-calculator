@@ -35,20 +35,20 @@ export const validateField = (fieldName, value) => {
     default:
       return "";
   }
-}
+};
 
-  // validate form, set errors where necessary
-  export const validateForm = (amount, term, rate, type) => {
-    const newErrors = {
-      amount: validateField("amount", amount),
-      term: validateField("term", term),
-      rate: validateField("rate", rate),
-      type: validateField("type", type),
-    };
-    // are there errors? true/false
-    const isValid = !Object.values(newErrors).some(
-      (error) => error !== "",
-    );
-    // return newErrors object, isValid boolean value
-    return { newErrors, isValid };
-  }
+// validate form, set errors where necessary
+export const validateForm = (amount, term, rate, type) => {
+  const newErrors = {
+    amount: validateField("amount", amount),
+    term: validateField("term", term),
+    rate: validateField("rate", rate),
+    type: validateField("type", type),
+  };
+  // are there errors? true/false
+  const isValid = !Object.values(newErrors).some(
+    (error) => error !== "",
+  );
+  // return newErrors object, isValid boolean value
+  return { newErrors, isValid };
+};

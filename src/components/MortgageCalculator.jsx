@@ -102,7 +102,6 @@ function MortgageCalculator() {
   };
 
   const handleClear = () => {
-    console.log("Clearing form...");
     // reset all form input state variables
     setAmount("");
     setTerm("");
