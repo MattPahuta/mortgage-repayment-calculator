@@ -1,22 +1,44 @@
+import { useFormattedInput } from "../hooks/useFormattedInput";
+
 function FormInput({
   label,
   name,
+  title,
   value,
   onChange,
   ref,
   error,
+  formatter,
   inputMode,
   accentContent,
   accentLabel,
   accentOrder = "",
 }) {
-  const handleChange = (event) => {
+  const formattedInput = useFormattedInput(
+    value,
+    onChange,
+    formatter,
+  );
+
+  const handleSimpleChange = (event) => {
     const inputValue = event.target.value;
     // allow only empty string, numbers, decimal point
     if (inputValue === "" || /^[0-9]*\.?[0-9]*$/.test(inputValue)) {
       onChange(inputValue);
     }
   };
+
+  // Determine which values and handlers to use based on whether formatter exists
+  const inputValue = formatter ? formattedInput.displayValue : value;
+  const changeHandler = formatter
+    ? formattedInput.handleChange
+    : handleSimpleChange;
+  const focusHandler = formatter
+    ? formattedInput.handleFocus
+    : undefined;
+  const blurHandler = formatter
+    ? formattedInput.handleBlur
+    : undefined;
 
   return (
     <>
@@ -33,8 +55,11 @@ function FormInput({
             type="text"
             id={name}
             name={name}
-            value={value}
-            onChange={handleChange}
+            title={title}
+            value={inputValue}
+            onChange={changeHandler}
+            onFocus={focusHandler}
+            onBlur={blurHandler}
             ref={ref}
             aria-invalid={error ? "true" : "false"}
             aria-describedby={error ? `${name}-error` : undefined}

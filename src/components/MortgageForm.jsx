@@ -1,5 +1,6 @@
 import FormInput from "./FormInput";
 import MortgageTypeSelector from "./MortgageTypeSelector";
+import { currencyFormatter } from "../utils/formatters.js";
 
 function MortgageForm({
   amount,
@@ -41,10 +42,12 @@ function MortgageForm({
             <FormInput
               label="Mortgage Amount"
               name="amount"
+              title="Total mortgage amount"
               value={amount}
               onChange={setAmount}
               ref={amountRef}
               error={errors.amount}
+              formatter={currencyFormatter}
               inputMode="decimal"
               accentContent="$"
               accentLabel="in dollars"
@@ -56,10 +59,12 @@ function MortgageForm({
             <FormInput
               label="Mortgage Term"
               name="term"
+              title="Mortgage term in years"
               value={term}
               onChange={setTerm}
               ref={termRef}
               error={errors.term}
+              formatter={currencyFormatter}
               inputMode="numeric"
               accentContent="years"
               accentLabel="in years"
@@ -71,10 +76,12 @@ function MortgageForm({
             <FormInput
               label="Interest Rate"
               name="rate"
+              title="Interest rate percentage"
               value={rate}
               onChange={setRate}
               ref={rateRef}
               error={errors.rate}
+              formatter={currencyFormatter}
               inputMode="decimal"
               accentContent="%"
               accentLabel="percentage"
