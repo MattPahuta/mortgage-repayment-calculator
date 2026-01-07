@@ -14,12 +14,14 @@ function FormInput({
   accentLabel,
   accentOrder = "",
 }) {
+  // use the formatted input hook if a formatter is provided
   const formattedInput = useFormattedInput(
     value,
     onChange,
     formatter,
   );
 
+  // for inputs with no provided formatter, use this simple change handler
   const handleSimpleChange = (event) => {
     const inputValue = event.target.value;
     // allow only empty string, numbers, decimal point

@@ -9,19 +9,22 @@ import { useState } from "react";
  */
 export const useFormattedInput = (value, onChange, formatter) => {
   const [isFocused, setIsFoused] = useState(false);
-
   // Derive value to avoid storing in state and potential cascading render issues
   const displayValue = isFocused
-    ? (value || '') // focused: show raw value for editing
-      // not focused AND has value And has formatter - formati it, or show raw/empty value
-    : (value && formatter ? formatter.format(value) : (value || ''));
+    ? value || "" // focused: show raw value for editing
+    : // not focused AND has value And has formatter - formati it, or show raw/empty value
+      value && formatter
+      ? formatter.format(value)
+      : value || "";
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
     // Clean the input using the provided formatter
-    const cleanValue = formatter ? formatter.clean(inputValue) : inputValue;
+    const cleanValue = formatter
+      ? formatter.clean(inputValue)
+      : inputValue;
     // Allow only valid numeric value
-    if (cleanValue === '' || /^[0-9]*\.?[0-9]*$/.test(cleanValue)) {
+    if (cleanValue === "" || /^[0-9]*\.?[0-9]*$/.test(cleanValue)) {
       onChange(cleanValue); // pass clean value to parent
     }
   };
@@ -39,7 +42,6 @@ export const useFormattedInput = (value, onChange, formatter) => {
     isFocused,
     handleChange,
     handleFocus,
-    handleBlur
-  }
-
-}
+    handleBlur,
+  };
+};

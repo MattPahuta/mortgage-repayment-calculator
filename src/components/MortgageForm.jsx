@@ -64,7 +64,6 @@ function MortgageForm({
               onChange={setTerm}
               ref={termRef}
               error={errors.term}
-              formatter={currencyFormatter}
               inputMode="numeric"
               accentContent="years"
               accentLabel="in years"
@@ -81,7 +80,6 @@ function MortgageForm({
               onChange={setRate}
               ref={rateRef}
               error={errors.rate}
-              formatter={currencyFormatter}
               inputMode="decimal"
               accentContent="%"
               accentLabel="percentage"
