@@ -44,7 +44,7 @@ function FormInput({
 
   return (
     <>
-      <label htmlFor={name} className="">
+      <label htmlFor={name}>
         {label}
         <span className="sr-only">{accentLabel}</span>
         <div

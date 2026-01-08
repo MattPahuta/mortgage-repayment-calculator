@@ -8,15 +8,17 @@ This is a solution to the [Mortgage repayment calculator challenge on Frontend M
 
 - [Overview](#overview)
   - [Project requirements](#project-requirements)
-  - [Technologies](#technologies)
+  - [Key project features](#key-project-features)
   - [Screenshots](#screenshots)
   - [Links](#links)
-  - [Key project features](#key-project-features)
-- [Technical highlights](#technical-highlights)
+- [My process](#my-process)
   - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
+  - [Technical highlights](#technical-highlights)
+  - [Lessons learned](#what-i-learned)
+  - [Future enhancements](#future-enhancements)
   - [Useful resources](#useful-resources)
+- [Project structure](#project-structure)
+- [Getting started](#getting-started)
 - [Connect](#connect)
 
 
@@ -32,13 +34,17 @@ Users should be able to:
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
 
-### 🛠️ Technologies
+### 🎯 Key project features
 
-- HTML5
-- [React](https://reactjs.org/)
-- JavaScript (ES6+)
-- [Tailwindcss](https://tailwindcss.com/)
-- [Vite](https://vite.dev/)
+This project features and demonstrates proficiency in:
+
+- Responsive and accessible design using Tailwind CSS and proper semantic HTML
+- Modern React patterns (hooks, controlled components, custom hook)
+- Form validation and error handling UX
+- Cross-browser compatibility problem-solving
+- Accessibility implementation (ARIA, focus management)
+- Pure functions for testable business logic
+- Clean architecture to separate business logic and UI components
 
 ### 🖥️ Screenshots
 
@@ -48,24 +54,23 @@ Users should be able to:
 
 ![](./mortgage-calculator_error.png)
 
-
 ### 🚀 Links
 
 - [Frontend Mentor solution page](https://your-solution-url.com)
 - [live demo site](https://example-live-demo.app)
 
-### 🎯 Key Project Features
+## My process
 
-This project features and demonstrates proficiency in:
+### 🛠️ Built with
 
-- Modern React patterns (hooks, controlled components, forwardRef)
-- Form validation and error handling UX
-- Cross-browser compatibility problem-solving
-- Accessibility implementation (ARIA, focus management)
-- Component architecture and code organization
-- Pure functions for testable business logic
+- HTML5
+- [React](https://reactjs.org/)
+- JavaScript (ES6+)
+- [Tailwindcss](https://tailwindcss.com/)
+- [Vite](https://vite.dev/)
 
-## 🔧 Technical Highlights
+
+### 🔧 Technical highlights
 
 ### Intelligent Error Clearing
 
@@ -97,9 +102,7 @@ Implemented `useRef` pattern to automatically focus the first invalid field:
 - Programmatically focused first error on validation failure
 
 ```js
-
 const amountRef = useRef(null);
-const termRef = useRef(null);
 // ... additional input refs
 
 const handleSubmit = (event) => {
@@ -131,11 +134,13 @@ const handleSubmit = (event) => {
 
 ### Modular Form Input Component Design 
 
-Implemented a custom solution for [Firefox browser's known behavior](https://bugzilla.mozilla.org/show_bug.cgi?id=1398528) of allowing non-numeric characters within `<input type=number>` resulting in the conversion of the invalid text input to empty strings:
-
+Implemented resusable input components to follow a modular app design approach and help streamline future enhancements. 
+- Included a `useFormattedInput` custom hook as well as a simple change handler to handle user input values
+- Utilized conditional Tailwind CSS class rendering and custom messaging to improve error content and states
+- Added additional ARIA attributes to improve overall accessibility and screen reader performance 
+- Implemented a custom solution for [Firefox browser's known behavior](https://bugzilla.mozilla.org/show_bug.cgi?id=1398528) of allowing non-numeric characters within `<input type=number>` resulting in the conversion of the invalid text input to empty strings:
 - Used `type="text"` with `inputMode="decimal"` and `inputMode="numeric"` to achieve greater control over inputs while preserving mobile keyboard support
 - Added real-time regex filtering to prevent non-numeric input values
-- Maintained accurate validation error messages
 
 ```js
 function FormInput({
@@ -182,7 +187,7 @@ function FormInput({
 
   return (
     <>
-      <label htmlFor={name} className="">
+      <label htmlFor={name}>
         {label}
         <span className="sr-only">{accentLabel}</span>
         <div
@@ -226,6 +231,26 @@ function FormInput({
 
 ```
 
+### 💡 Lessons learned
+
+Took a slightly more traditional approach to this project. Using pre-React 19 controlled form inputs and opting to pass props down a couple of levels rather than use Context (which I believe is the proper best practice for a project of this small scale). However, I did take advantage of the React 19 update where we no longer need to use `forwardRef` to forward refs to child components, simplifying the process. In the future, I'll look forward to building out forms and calculators with the enhancements React 19 offers.
+
+I also opted to mostly stick with the out of the box Tailwind colors and fonts rather than add the various custom colors and font from the design comp. Besides the more distinct lemon lime color that I did add as a custom variable, there wasn't much difference from what the figma file called for and what Tailwind provided. The project was mainly undertaken to continue practicing with React development and as a means to focus on the calculators core functionality and accessbility enhancements.
+
+### 🔮 Future Enhancements
+
+- [ ] Add amortization schedule visualization
+- [ ] Implement mortgage comparison tool
+- [ ] Add extra payment calculator
+- [ ] Export results as PDF
+- [ ] Add unit tests for utility functions
+
+### 📚 Useful resources
+
+- [Official Tailwind Docs](https://tailwindcss.com/docs/hover-focus-and-other-states#differentiating-nested-groups) - A love the Tailwind CSS docs. The hover and focus section has some great examples and use cases of dealing with nested and peer group styles. A lot of helpful guidance here to achieve a close match to the design comp.
+- [A complete guide to the HTML number input](https://olliewilliams.xyz/blog/guide-to-html-number-input/) - Brilliant and comprehensive article for all things HTML number input. This was a big help in understanding the various attributes of the input and the differences between browsers, and how they handle the settings.
+- [Remove spinners Tailwind CSS](https://dev.to/bobbyiliev/how-to-remove-arrow-on-input-type-number-with-tailwind-css-5b0f) - Another good, straightforward article on the necessary Tailwind classes and settings used for updating the default appearance of number inputs.
+
 ## 📂 Project Structure
 ```
 src/
@@ -241,35 +266,27 @@ src/
     └── formatters.js            # Currency formatting
 ```
 
+## 🚦 Getting Started
 
-###  💡 Lessons Learned
+1. Clone the repository
+```bash
+git clone https://github.com/MattPahuta/mortgage-calculator.git
+```
 
-Took a slightly more traditional approach to this project. Using pre-React 19 controlled form inputs and opting to pass props down a couple of levels rather than use Context (which I believe is the proper best practice for a project of this small scale). However, I did take advantage of the React 19 update where we no longer need to use `forwardRef` to forward refs to child components, simplifying the process. In the future, I'll look forward to building out forms and calculators with the enhancements React 19 offers.
+2. Install dependencies
+```bash
+npm install
+```
 
+3. Run development server
+```bash
+npm run dev
+```
 
-
-Notes:
-- Style: I kept within the constraints of base Tailwind colors and fonts, except for the primary lemon-lime green from the design. It's a shortcut, but I was more interested in the React-specific implementation of this project than aiming for pixel perfect matching. I also used this project to zero in on A11Y features and best practices.
-- I decided to make the error messaging a little more precise rather than stick with the generic messaging the design comp calls for. Again, looking to make the calculator as accessible as possible.
-
-- 
-- I went back and forth with the input elements. Originally, I had them as their proper number types and added additional styles to remove the spinners as the design comp calls for. During testing, I was reminded of the Firefox issue that allows for text in numeric inputs. Leaving one generic 'This field is required' error for all issues felt wrong. But since by the time the text values got to React and they were empty strings, my customized error messaging wasn't working properly. I considered a more complex approach to an an extra invalid attribute to the inputs to cover this issue, but it felt too heavyhanded for such a small thing. Ultimately, I opted to go with text inputs with an additional pattern attribute to help achieve the results I was looking for.
-- Article noted below... patternMismatch value
-
-### 🔮 Future Enhancements
-
-- [ ] Add amortization schedule visualization
-- [ ] Implement mortgage comparison tool
-- [ ] Add extra payment calculator
-- [ ] Export results as PDF
-- [ ] Add unit tests for utility functions
-
-### Useful resources
-
-- [Official Tailwind Docs](https://tailwindcss.com/docs/hover-focus-and-other-states#differentiating-nested-groups) - A love the Tailwind CSS docs. The hover and focus section has some great examples and use cases of dealing with nested and peer group styles. A lot of helpful guidance here to achieve a close match to the design comp.
-- [A complete guide to the HTML number input](https://olliewilliams.xyz/blog/guide-to-html-number-input/) - Brilliant and comprehensive article for all things HTML number input. This was a big help in understanding the various attributes of the input and the differences between browsers, and how they handle the settings.
-- [Remove spinners Tailwind CSS](https://dev.to/bobbyiliev/how-to-remove-arrow-on-input-type-number-with-tailwind-css-5b0f) - Another good, straightforward article on the necessary Tailwind classes and settings used for updating the default appearance of number inputs.
-
+4. Build for production
+```bash
+npm run build
+```
 
 ## 🤝 Connect
 
