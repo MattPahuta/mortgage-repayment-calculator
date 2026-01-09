@@ -1,8 +1,6 @@
 # Mortgage Calculator
 
-A responsive mortgage calculator built with React featuring advanced form validation, accessibility-focused error handling, and cross-browser compatibility.
-
-This is a solution to the [Mortgage repayment calculator challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/mortgage-repayment-calculator-Galx1LXK73). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+A responsive mortgage calculator built with React featuring advanced form validation, accessibility-focused error handling, and cross-browser compatibility. This is a solution to the [Mortgage repayment calculator challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/mortgage-repayment-calculator-Galx1LXK73). 
 
 ## Table of contents
 
@@ -24,7 +22,7 @@ This is a solution to the [Mortgage repayment calculator challenge on Frontend M
 
 ## Overview
 
-### 👥 Project requirements
+### Project requirements
 
 Users should be able to:
 
@@ -34,19 +32,19 @@ Users should be able to:
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
 
-### 🎯 Key project features
+### Key project features
 
 This project features and demonstrates proficiency in:
 
 - Responsive and accessible design using Tailwind CSS and proper semantic HTML
-- Modern React patterns (hooks, controlled components, custom hook)
+- Modern React patterns (hooks, controlled components, custom hooks)
 - Form validation and error handling UX
 - Cross-browser compatibility problem-solving
 - Accessibility implementation (ARIA, focus management)
 - Pure functions for testable business logic
 - Clean architecture to separate business logic and UI components
 
-### 🖥️ Screenshots
+### Screenshots
 
 ![](./mortgage-calculator_empty.png)
 
@@ -54,14 +52,14 @@ This project features and demonstrates proficiency in:
 
 ![](./mortgage-calculator_error.png)
 
-### 🚀 Links
+### Links
 
 - [Frontend Mentor solution page](https://your-solution-url.com)
-- [live demo site](https://example-live-demo.app)
+- [live demo site](https://amazing-parfait-1e4e44.netlify.app/)
 
 ## My process
 
-### 🛠️ Built with
+### Built with
 
 - HTML5
 - [React](https://reactjs.org/)
@@ -70,9 +68,9 @@ This project features and demonstrates proficiency in:
 - [Vite](https://vite.dev/)
 
 
-### 🔧 Technical highlights
+### Technical highlights
 
-### Intelligent Error Clearing
+**Intelligent Error Clearing**
 
 Implemented wrapper functions around state setters to:
 - Show errors only after form submission
@@ -94,7 +92,7 @@ const handleAmountChange = (value) => {
 };
 ```
 
-### Focus Management
+**Focus Management**
 
 Implemented `useRef` pattern to automatically focus the first invalid field:
 - Created refs for each input field
@@ -132,7 +130,7 @@ const handleSubmit = (event) => {
 };
 ```
 
-### Modular Form Input Component Design 
+**Modular Form Input Component Design**
 
 Implemented resusable input components to follow a modular app design approach and help streamline future enhancements. 
 - Included a `useFormattedInput` custom hook as well as a simple change handler to handle user input values
@@ -231,46 +229,48 @@ function FormInput({
 
 ```
 
-### 💡 Lessons learned
+### Lessons learned
 
-Took a slightly more traditional approach to this project. Using pre-React 19 controlled form inputs and opting to pass props down a couple of levels rather than use Context (which I believe is the proper best practice for a project of this small scale). However, I did take advantage of the React 19 update where we no longer need to use `forwardRef` to forward refs to child components, simplifying the process. In the future, I'll look forward to building out forms and calculators with the enhancements React 19 offers.
+I took a slightly more traditional approach to this project. Using pre-React 19 controlled form inputs and opting to pass props down a couple of levels rather than use Context (which I believe is the proper best practice for a project of this small scale). However, I did take advantage of the React 19 update, where we no longer need to use `forwardRef` to forward refs to child components, simplifying the process. In the future, I'll look forward to building out forms and calculators with the enhancements React 19 offers.
 
-I also opted to mostly stick with the out of the box Tailwind colors and fonts rather than add the various custom colors and font from the design comp. Besides the more distinct lemon lime color that I did add as a custom variable, there wasn't much difference from what the figma file called for and what Tailwind provided. The project was mainly undertaken to continue practicing with React development and as a means to focus on the calculators core functionality and accessbility enhancements.
+I also opted to mostly stick with the out-of-the-box Tailwind colors and fonts rather than add the various custom colors and fonts from the design comp. Besides the more distinct lemon lime color that I did add as a custom variable, there wasn't much difference from what the figma file called for and what Tailwind provided. The project was mainly undertaken to continue practicing with small-scale React development and as a means to focus on the calculator's core functionality and accessibility enhancements.
 
-### 🔮 Future Enhancements
+### Future Enhancements
 
 - [ ] Add amortization schedule visualization
 - [ ] Implement mortgage comparison tool
-- [ ] Add extra payment calculator
+- [ ] Add calculations for PMI, Escrow, etc.
 - [ ] Export results as PDF
 - [ ] Add unit tests for utility functions
 
-### 📚 Useful resources
+### Useful resources
 
 - [Official Tailwind Docs](https://tailwindcss.com/docs/hover-focus-and-other-states#differentiating-nested-groups) - A love the Tailwind CSS docs. The hover and focus section has some great examples and use cases of dealing with nested and peer group styles. A lot of helpful guidance here to achieve a close match to the design comp.
 - [A complete guide to the HTML number input](https://olliewilliams.xyz/blog/guide-to-html-number-input/) - Brilliant and comprehensive article for all things HTML number input. This was a big help in understanding the various attributes of the input and the differences between browsers, and how they handle the settings.
 - [Remove spinners Tailwind CSS](https://dev.to/bobbyiliev/how-to-remove-arrow-on-input-type-number-with-tailwind-css-5b0f) - Another good, straightforward article on the necessary Tailwind classes and settings used for updating the default appearance of number inputs.
 
-## 📂 Project Structure
+## Project Structure
 ```
 src/
 ├── components/
-│   ├── MortgageCalculator.jsx  # Main component with state
+│   ├── MortgageCalculator.jsx   # Main component with app state
 │   ├── MortgageForm.jsx         # Form container
 │   ├── FormInput.jsx            # Reusable input component
 │   ├── MortgageTypeSelector.jsx # Radio button group
-│   └── ResultsPane.jsx          # Results display
+│   └── ResultsPane.jsx          # Results display section
 └── utils/
     ├── calculations.js          # Mortgage formulas
     ├── validation.js            # Validation logic
-    └── formatters.js            # Currency formatting
+    └── formatters.js            # Currency formatting 
+└── hooks/    
+    └── useFormattedInput.js     # Custom hook to handle formatting logic
 ```
 
-## 🚦 Getting Started
+## Getting Started
 
 1. Clone the repository
 ```bash
-git clone https://github.com/MattPahuta/mortgage-calculator.git
+git clone https://github.com/MattPahuta/mortgage-repayment-calculator.git
 ```
 
 2. Install dependencies
@@ -288,7 +288,7 @@ npm run dev
 npm run build
 ```
 
-## 🤝 Connect
+## Connect
 
 - Website - [Matt Pahuta](https://www.mattpahuta.com)
 - Frontend Mentor - [@mattpahuta](https://www.frontendmentor.io/profile/MattPahuta)

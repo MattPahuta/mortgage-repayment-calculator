@@ -124,7 +124,7 @@ function MortgageCalculator() {
   };
 
   return (
-    <div className="max-w-5xl grid overflow-hidden sm:rounded-3xl lg:grid-cols-2 bg-white">
+    <div className="max-w-5xl shadow-lg grid overflow-hidden sm:rounded-3xl lg:grid-cols-2 bg-white">
       <section>
         <MortgageForm
           amount={amount}
