@@ -65,7 +65,7 @@ function FormInput({
             ref={ref}
             aria-invalid={error ? "true" : "false"}
             aria-describedby={error ? `${name}-error` : undefined}
-            pattern="[0-9]*\.?[0-9]*"
+            pattern="^\d+(\.\d+)?$"
             inputMode={inputMode}
             className={`${accentOrder} peer w-full mx-4 appearance-none text-slate-900 font-semibold outline-0 group-hover:cursor-pointer`}
           />

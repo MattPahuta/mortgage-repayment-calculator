@@ -8,7 +8,7 @@ import { useState } from "react";
  * @returns {object} - Display value and event handlers
  */
 export const useFormattedInput = (value, onChange, formatter) => {
-  const [isFocused, setIsFoused] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   // Derive value to avoid storing in state and potential cascading render issues
   const displayValue = isFocused
     ? value || "" // focused: show raw value for editing
@@ -30,11 +30,11 @@ export const useFormattedInput = (value, onChange, formatter) => {
   };
 
   const handleFocus = () => {
-    setIsFoused(true);
+    setIsFocused(true);
   };
 
   const handleBlur = () => {
-    setIsFoused(false);
+    setIsFocused(false);
   };
 
   return {

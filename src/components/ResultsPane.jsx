@@ -51,7 +51,7 @@ function ResultsPane({ hasCalculated, results }) {
                   <th
                     scope="col"
                     className="text-left font-medium text-slate-400 pt-4 pb-2 md:pt-8">
-                    Total you'll repay over the term
+                    Total you&apos;ll repay over the term
                   </th>
                 </tr>
                 <tr>
