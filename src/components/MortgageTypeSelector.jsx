@@ -1,5 +1,4 @@
 function MortgageTypeSelector({ value, onChange, ref, error }) {
-  
   const handleChange = (event) => {
     onChange(event.target.value);
   };

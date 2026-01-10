@@ -5,13 +5,11 @@ import MortgageForm from "./MortgageForm";
 import ResultsPane from "./ResultsPane";
 
 function MortgageCalculator() {
-  // input elements state
   const [amount, setAmount] = useState("");
   const [term, setTerm] = useState("");
   const [rate, setRate] = useState("");
   const [type, setType] = useState("");
 
-  // validation errors state
   const [errors, setErrors] = useState({
     amount: "",
     term: "",
@@ -19,60 +17,17 @@ function MortgageCalculator() {
     type: "",
   });
 
-  // calculated results state
   const [results, setResults] = useState({
     monthlyPayment: 0,
     totalRepayment: 0,
   });
 
-  // state for handling display of calculated results
   const [hasCalculated, setHasCalculated] = useState(false);
 
-  // refs to facilitate focus behavior on error
   const amountRef = useRef(null);
   const termRef = useRef(null);
   const rateRef = useRef(null);
   const typeRef = useRef(null);
-
-  // const handleAmountChange = (value) => {
-  //   setAmount(value);
-  //   if (errors.amount) {
-  //     const error = validateField("amount", value);
-  //     if (!error) {
-  //       setErrors((prev) => ({ ...prev, amount: "" }));
-  //     }
-  //   }
-  // };
-
-  // const handleTermChange = (value) => {
-  //   setTerm(value);
-  //   if (errors.term) {
-  //     const error = validateField("term", value);
-  //     if (!error) {
-  //       setErrors((prev) => ({ ...prev, term: "" }));
-  //     }
-  //   }
-  // };
-
-  // const handleRateChange = (value) => {
-  //   setRate(value);
-  //   if (errors.rate) {
-  //     const error = validateField("rate", value);
-  //     if (!error) {
-  //       setErrors((prev) => ({ ...prev, rate: "" }));
-  //     }
-  //   }
-  // };
-
-  // const handleTypeChange = (value) => {
-  //   setType(value);
-  //   if (errors.type) {
-  //     const error = validateField("type", value);
-  //     if (!error) {
-  //       setErrors((prev) => ({ ...prev, type: "" }));
-  //     }
-  //   }
-  // };
 
   /**
    * Creates a change handler for a specific field
@@ -81,7 +36,6 @@ function MortgageCalculator() {
   const createChangeHandler = (fieldName, setter) => (value) => {
     setter(value);
 
-    // Clear error if the new value is valid
     if (errors[fieldName]) {
       const error = validateField(fieldName, value);
       if (!error) {
@@ -90,7 +44,6 @@ function MortgageCalculator() {
     }
   };
 
-  // Generate handlers
   const handleAmountChange = createChangeHandler("amount", setAmount);
   const handleTermChange = createChangeHandler("term", setTerm);
   const handleRateChange = createChangeHandler("rate", setRate);
@@ -98,7 +51,6 @@ function MortgageCalculator() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // get errors object and validity boolean value
     const { newErrors, isValid } = validateForm(
       amount,
       term,
@@ -134,24 +86,20 @@ function MortgageCalculator() {
   };
 
   const handleClear = () => {
-    // reset all form input state variables
     setAmount("");
     setTerm("");
     setRate("");
     setType("");
-    // reset errors
     setErrors({
       amount: "",
       term: "",
       rate: "",
       type: "",
     });
-
     setResults({
       monthlyPayment: 0,
       totalRepayment: 0,
     });
-
     setHasCalculated(false);
   };
 

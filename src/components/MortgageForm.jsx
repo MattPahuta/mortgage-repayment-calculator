@@ -37,7 +37,6 @@ function MortgageForm({
           </button>
         </header>
         <div className="grid gap-6 sm:grid-cols-2">
-          {/* Input grid group */}
           <div className="grid gap-2.5 sm:col-span-2">
             <FormInput
               label="Mortgage Amount"
@@ -45,7 +44,6 @@ function MortgageForm({
               title="Total mortgage amount"
               value={amount}
               onChange={setAmount}
-              // onChange={handleChange}
               ref={amountRef}
               error={errors.amount}
               formatter={currencyFormatter}
@@ -55,15 +53,13 @@ function MortgageForm({
               accentOrder="order-1"
             />
           </div>
-          {/* Input grid group */}
-          <div className="grid gap-2.5">
+          <div className="grid content-start gap-2.5">
             <FormInput
               label="Mortgage Term"
               name="term"
               title="Mortgage term in years"
               value={term}
               onChange={setTerm}
-              // onChange={handleChange}
               ref={termRef}
               error={errors.term}
               inputMode="numeric"
@@ -72,15 +68,13 @@ function MortgageForm({
               accentOrder="order-0"
             />
           </div>
-          {/* Input grid group */}
-          <div className="grid gap-2.5">
+          <div className="grid content-start gap-2.5">
             <FormInput
               label="Interest Rate"
               name="rate"
               title="Interest rate percentage"
               value={rate}
               onChange={setRate}
-              // onChange={handleChange}
               ref={rateRef}
               error={errors.rate}
               inputMode="decimal"
@@ -89,12 +83,10 @@ function MortgageForm({
               accentOrder="order-0"
             />
           </div>
-          {/* Radio fieldset grid group */}
           <div className="grid sm:col-span-2">
             <MortgageTypeSelector
               value={type}
               onChange={setType}
-              // onChange={handleChange}
               ref={typeRef}
               error={errors.type}
             />

@@ -36,13 +36,14 @@ Users should be able to:
 
 This project features and demonstrates proficiency in:
 
-- Responsive and accessible design using Tailwind CSS and proper semantic HTML
-- Modern React patterns (hooks, controlled components, custom hooks)
-- Form validation and error handling UX
-- Cross-browser compatibility problem-solving
-- Accessibility implementation (ARIA, focus management)
-- Pure functions for testable business logic
-- Clean architecture to separate business logic and UI components
+- Responsive and accessible design using Tailwind CSS and semantic HTML5
+- Modern React patterns (useState, useRef, controlled components, custom hooks)
+- Currency Formatting: Automatic formatting of mortgage amounts with commas and decimals (e.g., "500,000.00")
+- Real-Time Validation: Instant feedback with intelligent error clearing as users fix issues
+- Cross-Browser Compatible: Custom solution for Firefox numeric input handling
+- Enhanced accessibility with proper ARIA attributes, additional SR-specific labeling
+- Focus management on validation errors to improve UX for keyboard and screen reader users
+- Clean Architecture: Separation of business logic (utils) and UI components
 
 ### Screenshots
 
@@ -54,7 +55,7 @@ This project features and demonstrates proficiency in:
 
 ### Links
 
-- [Frontend Mentor solution page](https://your-solution-url.com)
+- [Frontend Mentor solution page](https://www.frontendmentor.io/solutions/responsive-mortgage-calculator-app-built-with-react-and-tailwind-css-8ULKRKXI2L)
 - [live demo site](https://amazing-parfait-1e4e44.netlify.app/)
 
 ## My process
@@ -70,11 +71,11 @@ This project features and demonstrates proficiency in:
 
 ### Technical highlights
 
-**Reusable function to create input change handlers**
+**Reusable higher-order function to generate change handlers*
 
-Implemented a factory function to:
-- Simplify validation logic and improve maintainability
-- Facilitate efficient error handling
+Implemented a `createChangeHandler` factory function to:
+- Reduce code duplication and improve maintainability
+- Simplify validation logic and facilitate efficient error handling
 - Maintain readability by using clear handler names
 
 ```js
@@ -169,16 +170,13 @@ function FormInput({
     onChange,
     formatter,
   );
-
   // for inputs with no provided formatter, use this simple change handler
   const handleSimpleChange = (event) => {
     const inputValue = event.target.value;
-    // allow only empty string, numbers, decimal point
     if (inputValue === "" || /^[0-9]*\.?[0-9]*$/.test(inputValue)) {
       onChange(inputValue);
     }
   };
-
   // Determine which values and handlers to use based on whether formatter exists
   const inputValue = formatter ? formattedInput.displayValue : value;
   const changeHandler = formatter
@@ -196,35 +194,35 @@ function FormInput({
       <label htmlFor={name}>
         {label}
         <span className="sr-only">{accentLabel}</span>
-        <div
-          className={`
-          group mt-2.5 flex items-center rounded-sm border overflow-hidden shadow-sm hover:border-slate-900 transition 
-          ${error ? "border-red-600" : "border-slate-400 has-focus:border-lemon-lime"}
-          `}>
-          <input
-            required
-            type="text"
-            id={name}
-            name={name}
-            title={title}
-            value={inputValue}
-            onChange={changeHandler}
-            onFocus={focusHandler}
-            onBlur={blurHandler}
-            ref={ref}
-            aria-invalid={error ? "true" : "false"}
-            aria-describedby={error ? `${name}-error` : undefined}
-            pattern="[0-9]*\.?[0-9]*"
-            inputMode={inputMode}
-            className={`${accentOrder} peer w-full mx-4 appearance-none text-slate-900 font-semibold outline-0 group-hover:cursor-pointer`}
-          />
-          <div
-            className={`px-3.5 py-2 text-lg font-bold  ${error ? "bg-red-600 text-white" : "bg-sky-100 peer-focus:bg-lemon-lime peer-focus:text-slate-900"}
-            `}>
-            {accentContent}
-          </div>
-        </div>
       </label>
+      <div
+        className={`
+        group flex items-center rounded-sm border overflow-hidden shadow-sm hover:border-slate-900 transition 
+        ${error ? "border-red-600" : "border-slate-400 has-focus:border-lemon-lime"}
+        `}>
+        <input
+          required
+          type="text"
+          id={name}
+          name={name}
+          title={title}
+          value={inputValue}
+          onChange={changeHandler}
+          onFocus={focusHandler}
+          onBlur={blurHandler}
+          ref={ref}
+          aria-invalid={error ? "true" : "false"}
+          aria-describedby={error ? `${name}-error` : undefined}
+          pattern="^\d+(\.\d+)?$"
+          inputMode={inputMode}
+          className={`${accentOrder} peer w-full mx-4 appearance-none text-slate-900 font-semibold outline-0 group-hover:cursor-pointer`}
+        />
+        <div
+          className={`px-3.5 py-2 text-lg font-bold  ${error ? "bg-red-600 text-white" : "bg-sky-100 peer-focus:bg-lemon-lime peer-focus:text-slate-900"}
+          `}>
+          {accentContent}
+        </div>
+      </div>
       {/* error notification */}
       {error && (
         <div id={`${name}-error`} role="alert" aria-live="assertive">
@@ -234,7 +232,6 @@ function FormInput({
     </>
   );
 }
-
 ```
 
 ### Lessons learned
@@ -261,17 +258,17 @@ I also opted to mostly stick with the out-of-the-box Tailwind colors and fonts r
 ```
 src/
 ├── components/
-│   ├── MortgageCalculator.jsx   # Main component with app state
-│   ├── MortgageForm.jsx         # Form container
-│   ├── FormInput.jsx            # Reusable input component
+│   ├── MortgageCalculator.jsx   # Main component with app state mgmt
+│   ├── MortgageForm.jsx         # Form container component
+│   ├── FormInput.jsx            # Reusable input with formatting support
 │   ├── MortgageTypeSelector.jsx # Radio button group
 │   └── ResultsPane.jsx          # Results display section
 └── utils/
-    ├── calculations.js          # Mortgage formulas
-    ├── validation.js            # Validation logic
-    └── formatters.js            # Currency formatting 
+    ├── calculations.js          # Mortgage calculation formulas
+    ├── validation.js            # Form validation logic
+    └── formatters.js            # Currency and number formatting 
 └── hooks/    
-    └── useFormattedInput.js     # Custom hook to handle formatting logic
+    └── useFormattedInput.js     # Custom hook for formatted inputs
 ```
 
 ## Getting Started
@@ -279,6 +276,7 @@ src/
 1. Clone the repository
 ```bash
 git clone https://github.com/MattPahuta/mortgage-repayment-calculator.git
+cd mortgage-repayment-calculator
 ```
 
 2. Install dependencies
