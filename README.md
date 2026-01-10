@@ -70,29 +70,37 @@ This project features and demonstrates proficiency in:
 
 ### Technical highlights
 
-**Intelligent Error Clearing**
+**Reusable function to create input change handlers**
 
-Implemented wrapper functions around state setters to:
-- Show errors only after form submission
-- Clear errors immediately when user corrects the issue
-- Avoid unnecessary validation during initial typing
+Implemented a factory function to:
+- Simplify validation logic and improve maintainability
+- Facilitate efficient error handling
+- Maintain readability by using clear handler names
 
 ```js
-// receive value from input
-const handleAmountChange = (value) => {
-  setAmount(value); // update the value
-  if (errors.amount) {
-    // check if there's currently an error
-    const error = validateField("amount", value);
+/**
+ * Creates a change handler for a specific field
+ * Handles both state updates and error clearing
+ */
+const createChangeHandler = (fieldName, setter) => (value) => {
+  setter(value);
+  // Clear error if the new value is valid
+  if (errors[fieldName]) {
+    const error = validateField(fieldName, value);
     if (!error) {
-      // if error is resolved with a valid value
-      setErrors((prev) => ({ ...prev, amount: "" })); // clear the error message
+      setErrors((prev) => ({ ...prev, [fieldName]: "" }));
     }
   }
 };
+
+// Generate individual change handlers
+const handleAmountChange = createChangeHandler('amount', setAmount);
+const handleTermChange = createChangeHandler('term', setTerm);
+const handleRateChange = createChangeHandler('rate', setRate);
+const handleTypeChange = createChangeHandler('type', setType);
 ```
 
-**Focus Management**
+**Focus management**
 
 Implemented `useRef` pattern to automatically focus the first invalid field:
 - Created refs for each input field
@@ -130,9 +138,9 @@ const handleSubmit = (event) => {
 };
 ```
 
-**Modular Form Input Component Design**
-
+**Modular form input component design**
 Implemented resusable input components to follow a modular app design approach and help streamline future enhancements. 
+
 - Included a `useFormattedInput` custom hook as well as a simple change handler to handle user input values
 - Utilized conditional Tailwind CSS class rendering and custom messaging to improve error content and states
 - Added additional ARIA attributes to improve overall accessibility and screen reader performance 

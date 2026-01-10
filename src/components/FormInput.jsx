@@ -44,10 +44,10 @@ function FormInput({
 
   return (
     <>
-      <label htmlFor={name}>
+      <label>
         {label}
         <span className="sr-only">{accentLabel}</span>
-        <div
+        <span
           className={`
           group mt-2.5 flex items-center rounded-sm border overflow-hidden shadow-sm hover:border-slate-900 transition 
           ${error ? "border-red-600" : "border-slate-400 has-focus:border-lemon-lime"}
@@ -74,7 +74,7 @@ function FormInput({
             `}>
             {accentContent}
           </div>
-        </div>
+        </span>
       </label>
       {/* error notification */}
       {error && (

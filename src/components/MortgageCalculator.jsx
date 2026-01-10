@@ -10,11 +10,7 @@ function MortgageCalculator() {
   const [term, setTerm] = useState("");
   const [rate, setRate] = useState("");
   const [type, setType] = useState("");
-  // refs to facilitate focus behavior on error
-  const amountRef = useRef(null);
-  const termRef = useRef(null);
-  const rateRef = useRef(null);
-  const typeRef = useRef(null);
+
   // validation errors state
   const [errors, setErrors] = useState({
     amount: "",
@@ -22,49 +18,6 @@ function MortgageCalculator() {
     rate: "",
     type: "",
   });
-
-  // wrapped setter functions for real-time error management
-  const handleAmountChange = (value) => {
-    setAmount(value); // update the value
-    if (errors.amount) {
-      // check if there's currently an error
-      const error = validateField("amount", value);
-      if (!error) {
-        // if error is resolved with a valid value
-        setErrors((prev) => ({ ...prev, amount: "" })); // clear the error message
-      }
-    }
-  };
-
-  const handleTermChange = (value) => {
-    setTerm(value);
-    if (errors.term) {
-      const error = validateField("term", value);
-      if (!error) {
-        setErrors((prev) => ({ ...prev, term: "" }));
-      }
-    }
-  };
-
-  const handleRateChange = (value) => {
-    setRate(value);
-    if (errors.rate) {
-      const error = validateField("rate", value);
-      if (!error) {
-        setErrors((prev) => ({ ...prev, rate: "" }));
-      }
-    }
-  };
-
-  const handleTypeChange = (value) => {
-    setType(value);
-    if (errors.type) {
-      const error = validateField("type", value);
-      if (!error) {
-        setErrors((prev) => ({ ...prev, type: "" }));
-      }
-    }
-  };
 
   // calculated results state
   const [results, setResults] = useState({
@@ -75,17 +28,96 @@ function MortgageCalculator() {
   // state for handling display of calculated results
   const [hasCalculated, setHasCalculated] = useState(false);
 
+  // refs to facilitate focus behavior on error
+  const amountRef = useRef(null);
+  const termRef = useRef(null);
+  const rateRef = useRef(null);
+  const typeRef = useRef(null);
+
+  // const handleAmountChange = (value) => {
+  //   setAmount(value);
+  //   if (errors.amount) {
+  //     const error = validateField("amount", value);
+  //     if (!error) {
+  //       setErrors((prev) => ({ ...prev, amount: "" }));
+  //     }
+  //   }
+  // };
+
+  // const handleTermChange = (value) => {
+  //   setTerm(value);
+  //   if (errors.term) {
+  //     const error = validateField("term", value);
+  //     if (!error) {
+  //       setErrors((prev) => ({ ...prev, term: "" }));
+  //     }
+  //   }
+  // };
+
+  // const handleRateChange = (value) => {
+  //   setRate(value);
+  //   if (errors.rate) {
+  //     const error = validateField("rate", value);
+  //     if (!error) {
+  //       setErrors((prev) => ({ ...prev, rate: "" }));
+  //     }
+  //   }
+  // };
+
+  // const handleTypeChange = (value) => {
+  //   setType(value);
+  //   if (errors.type) {
+  //     const error = validateField("type", value);
+  //     if (!error) {
+  //       setErrors((prev) => ({ ...prev, type: "" }));
+  //     }
+  //   }
+  // };
+
+  /**
+   * Creates a change handler for a specific field
+   * Handles both state updates and error clearing
+   */
+  const createChangeHandler = (fieldName, setter) => (value) => {
+    setter(value);
+
+    // Clear error if the new value is valid
+    if (errors[fieldName]) {
+      const error = validateField(fieldName, value);
+      if (!error) {
+        setErrors((prev) => ({ ...prev, [fieldName]: "" }));
+      }
+    }
+  };
+
+  // Generate handlers
+  const handleAmountChange = createChangeHandler("amount", setAmount);
+  const handleTermChange = createChangeHandler("term", setTerm);
+  const handleRateChange = createChangeHandler("rate", setRate);
+  const handleTypeChange = createChangeHandler("type", setType);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // get errors object and validity boolean value
-    const { newErrors, isValid } = validateForm(amount, term, rate, type);
+    const { newErrors, isValid } = validateForm(
+      amount,
+      term,
+      rate,
+      type,
+    );
     setErrors(newErrors);
 
     if (isValid) {
-      const calculatedResults = calculateMortgage(amount, term, rate, type);
+      const calculatedResults = calculateMortgage(
+        amount,
+        term,
+        rate,
+        type,
+      );
       setResults(calculatedResults);
       setHasCalculated(true);
-    } else { // validation has failed
+    } else {
+      // validation has failed
       const fieldOrder = [
         { name: "amount", ref: amountRef, error: newErrors.amount },
         { name: "term", ref: termRef, error: newErrors.term },
@@ -145,7 +177,6 @@ function MortgageCalculator() {
         />
       </section>
       <section
-        role="region"
         aria-live="polite"
         className="py-8 px-6 sm:p-10 grid bg-cyan-950 text-slate-300 lg:rounded-bl-[80px]">
         <ResultsPane

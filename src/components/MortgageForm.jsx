@@ -45,6 +45,7 @@ function MortgageForm({
               title="Total mortgage amount"
               value={amount}
               onChange={setAmount}
+              // onChange={handleChange}
               ref={amountRef}
               error={errors.amount}
               formatter={currencyFormatter}
@@ -62,6 +63,7 @@ function MortgageForm({
               title="Mortgage term in years"
               value={term}
               onChange={setTerm}
+              // onChange={handleChange}
               ref={termRef}
               error={errors.term}
               inputMode="numeric"
@@ -78,6 +80,7 @@ function MortgageForm({
               title="Interest rate percentage"
               value={rate}
               onChange={setRate}
+              // onChange={handleChange}
               ref={rateRef}
               error={errors.rate}
               inputMode="decimal"
@@ -91,6 +94,7 @@ function MortgageForm({
             <MortgageTypeSelector
               value={type}
               onChange={setType}
+              // onChange={handleChange}
               ref={typeRef}
               error={errors.type}
             />
